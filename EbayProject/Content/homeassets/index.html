@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>eBay Product Analytics</title>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Software Company">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript"></script>
+
+	<!-- Linking favicon -->
+	<link rel="icon" href="content/images/favicon.ico" type="image/png" sizes="16x16"> 
+
+	<!-- Linking Tailwind CSS -->
+	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+	<!--Linking component -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous" />
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+	<!--Linking Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- Linking style.css -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+
+	<nav class="flex items-center bg-gray-800 p-3 sm:px-14 flex-wrap">
+      <a href="#" class="p-2 mr-4 inline-flex items-center">
+        <span class="text-xl text-white tracking-wide">Playmaker</span>
+      </a>
+      <button
+        class="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none nav-toggler"
+        data-target="#navigation"
+      >
+        <i class="material-icons">menu</i>
+      </button>
+      <div
+        class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto"
+        id="navigation"
+      >
+        <div
+          class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto"
+        >
+          <a
+            href="#"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
+          >
+            <span>Cards</span>
+          </a>
+          <a
+            href="#"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
+          >
+            <span>NFTs</span>
+          </a>
+          <a
+            href="#"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
+          >
+            <span>About</span>
+          </a>
+            <a
+            href="#"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
+          >
+
+
+    <button class="bg-gray-300 text-gray-700  py-2 px-4 rounded inline-flex items-center" style="color: white;background-color: transparent;border: 1px solid white;">
+    	<h5 class="fa fa-globe"></h5>
+      <span class="mr-1 ml-2">English</span>
+      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+    </button>
+    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+      <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">One</a></li>
+      <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Two</a></li>
+      <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Three is the magic number</a></li>
+    </ul>
+
+
+
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="w-full bg-cover bg-center" style="height:16rem;">
+        <div class="px-8 flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
+            <div class="text-center">
+                <h1 class="text-white text-2xl md:text-3xl">Research sports card and NFTs all in one place</h1>
+                <p class="pt-4 pb-8 text-white text-sm font-thin tracking-wide">The sports trading cards market is set to reach $100 billion by 2007 and the NFT market will only multiply that exponentially. We're<br>
+				to help you capitialise on it with market trends and insights, all in one place and all for free.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-6 sm:mx-auto pt-10">
+	  <div class="text-center text-clr sm:text-left row-span-1 font-bold">Start here to research and chart any card</div>
+	</div>
+
+	<div class="container px-6 sm:mx-auto pt-5 md:grid grid-cols-6 md:gap-4" style="column-count: 2;">
+
+	  <div>
+	  	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">PLAYER NAME</label>
+	  	<div class="relative inline-block w-full text-gray-700">
+		  <select class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+		    <option>A regular sized select input</option>
+		    <option>Another option</option>
+		    <option>And one more</option>
+		  </select>
+		  <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+		  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+		  </div>
+		</div>
+	  </div>
+
+	  <div>
+	  	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">SET</label>
+	  	<div class="relative inline-block w-full text-gray-700">
+		  <select class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+		    <option>A regular sized select input</option>
+		    <option>Another option</option>
+		    <option>And one more</option>
+		  </select>
+		  <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+		  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+		  </div>
+		</div>
+	  </div>
+
+	  <div>
+	  	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">YEAR</label>
+	  	<div class="relative inline-block w-full text-gray-700">
+		  <select class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+		    <option>A regular sized select input</option>
+		    <option>Another option</option>
+		    <option>And one more</option>
+		  </select>
+		  <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+		  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+		  </div>
+		</div>
+	  </div>
+
+	  <div>
+	  	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">VARIATION</label>
+	  	<div class="relative inline-block w-full text-gray-700">
+		  <select class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+		    <option>A regular sized select input</option>
+		    <option>Another option</option>
+		    <option>And one more</option>
+		  </select>
+		  <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+		  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+		  </div>
+		</div>
+	  </div>
+
+	  <div>
+	  	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">GRADES</label>
+	  	<div class="relative inline-block w-full text-gray-700">
+		  <select class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+		    <option>A regular sized select input</option>
+		    <option>Another option</option>
+		    <option>And one more</option>
+		  </select>
+		  <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+		  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+		  </div>
+		</div>
+	  </div>
+
+	  <div class="">
+		  <button class="bg-green-500 text-sm text-white py-3 px-4 rounded-lg mt-10 w-full sm:mt-7 sm:w-36">
+			  ADD TO CHART
+		  </button>
+	  </div>
+
+	</div>
+
+	<div class="container px-6 sm:mx-auto pt-9 grid grid-rows-1 gap-4">
+	  <div class="text-start text-2xl font-extrabold row-span-1 font-bold text-center sm:text-left">CARDS</div>
+	</div>
+
+	<div class="container px-6 sm:mx-auto pt-8 grid grid-rows-1 gap-4">
+	  <div class="text-start text-lg row-span-1 font-bold text-center sm:text-left">
+	     Shohei Ohtani 2018 Topps Baseball Base PSA 10
+	  </div>
+	</div>
+
+
+
+	<div class="container px-6 sm:mx-auto pt-8 grid lg:grid-rows-1 sm:grid-row-2">
+	  <div class="grid grid-cols-2 sm:grid-cols-4">
+
+	     <div>
+	     	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">TOTAL POPULATION</label>
+	     	<h3 class="text-start text-2xl font-bold">2,398</h3>
+	     </div>
+	     <div class="mll-1">
+	     	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">AVERAGE COMPLETED PRICE (PAST 14 DAYS)</label>
+	     	<h3 class="text-start text-2xl font-bold">$13,984</h3>
+	     </div>
+	     <div class="mll-1">
+	     	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-4 sm:pt-0" for="username">NUMBER OF COMPLETE SALES</label>
+	     	<h3 class="text-start text-2xl font-bold">324</h3>
+	     </div>
+	  	  <div class="mll-3">
+	  		<label class="drtext-style block text-gray-700 text-sm font-bold mb-2 mll-2 pt-4 sm:pt-0" for="username">     Real-time data source</label>
+	  		<div class="grid lg:grid-rows-1 lg:grid-cols-5 sm:grid-rows-5">
+	  			<div class="mll-2"><img src="content/images/ebay.svg" width="70px"></div>
+
+	  			<div class="mll-2">
+	  				<label class="flex items-center">
+				    <input type="checkbox" class="form-checkbox">
+				    <span class="ml-2">All</span></span>
+				    </label>
+                </div>
+
+                <div>
+	  				<label class="flex items-center">
+				    <input type="checkbox" class="form-checkbox">
+				    <span class="ml-2">Auctions</span></span>
+				    </label>
+                </div>
+
+
+	  			<div>
+	  				<label class="flex items-center">
+				    <input type="checkbox" class="form-checkbox">
+				    <span class="ml-2">Best offer</span></span>
+				    </label>
+                </div>
+
+	  			<div>
+	  				<label class="flex items-center">
+				    <input type="checkbox" class="form-checkbox">
+				    <span class="ml-2">Buy it now</span></span>
+				    </label>
+                </div>
+
+	  		</div>
+	  	  </div>
+
+	  </div>
+	</div>
+
+	<div class="container px-6 sm:mx-auto pt-4 grid grid-rows-1"><hr></div>
+
+	<div class="grid-rows-1 pt-6 sm:py-8">
+		<h2 class="text-center sm:text-center" style="color: #8C8787;">GRAPH TO BE ADDED</h2>
+	</div>
+
+<!-- <div class="container px-6 pt-4 grid grid-rows-1 grid-cols-3">
+
+ <div align="left">
+
+	<style type="text/css">
+		.select-wrap 
+		{
+		  border: 1px solid #D1D1D1;
+		  border-width: 2px;
+		  border-radius: 4px;
+		  margin-bottom: 10px;
+		  padding: 0 5px 5px;
+		  width:200px;
+		}
+
+		.select-wrap label
+		{
+			margin-bottom: 0px;
+		  padding: 5px 12px 0;
+		}
+	</style>
+
+
+<div class="relative inline-block w-full text-gray-700 select-wrap">
+	<label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">Showing</label>
+		  <select class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600  rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input" style="height: 23px;">
+		    <option>Monthly</option>
+		    <option>Weekly</option>
+		    <option>Yearly</option>
+		  </select>
+		  <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+		  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+		  </div>
+		</div>
+	  </div>
+
+	  <div align="right">
+	  	
+	  </div>
+
+	  <div align="right" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-content: center;">
+	  	<h6 style="margin-right: 46px;">Ctrl + scroll to zoom (Cmd on Macs)</h6>
+                            <a href="javascript:void(0)" class="zoom zoom_plus">
+                                <span><img src="content/images/zoom-plus.svg" alt="" style="padding-right: 40px;"></span>
+                            </a>
+                            <a href="javascript:void(0)" class="zoom zoom_minus">
+                                <span><img src="content/images/zoom-minus.svg" alt=""></span>
+                            </a>
+	  </div>
+
+	</div> -->
+
+	<!-- <div class="container px-6 pt-8 grid grid-rows-1">
+	  <div class="grid grid-cols-2">
+
+	     <div>
+	     		 <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">Showing</label>
+			  	<div class="relative inline-block w-full text-gray-700 showing">
+				  <select class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+				    <option>Weekly</option>
+				    <option>Monthly</option>
+				    <option>Yearly</option>
+				  </select>
+				  <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none showingicon">
+				  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+				  </div>
+				</div>
+	     </div>
+
+	  	  <div class="controlzoom">
+	  		<label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">     </label>
+		  		<div class="grid grid-rows-1 grid-cols-3">
+		  			<div><label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">Ctrl + scroll to zoom (Cmd on Macs)</label>
+		  		</div>
+
+	  			<div align="right">
+	  				<img src="content/images/zoom-plus.svg" alt="">
+                </div>
+
+                <div>
+	  				<img src="content/images/zoom-minus.svg" alt="">
+                </div>
+
+	  		</div>
+	  	  </div>
+
+	  </div>
+	</div> -->
+   
+<!-- This example requires Tailwind CSS v2.0+ -->
+<!-- component -->
+<div class="container px-0 px-6 sm:mx-auto pt-8 pb-8" style="overflow-x: auto;">
+                <div class="align-middle inline-block min-w-full bg-white pt-3 rounded-bl-lg rounded-br-lg">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Photo&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></th>
+                                <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Title&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></th>
+                                <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">TOTAL POPULATION&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></th>
+                                <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">AVG. COMPLETED PRICE (PAST 14 DAYS)&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></th>
+                                <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">COMPLETE SALES&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="Sheep" width="150px">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b">
+                                        <label class="inline-flex items-center mt-3">
+							                <input type="radio" class="form-radio h-5 w-5 text-gray-600" checked><span class="ml-2 text-gray-700 font-boldness tdcolor text-sm">Product name</span>
+							            </label>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-sm leading-5 font-boldness tdcolor">2,398</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-sm leading-5 font-boldness tdcolor">
+                                    	$13,984<i class="fa fa-caret-up fa-lg pl-2"></i>&nbsp;$70 (+4%)
+				    				</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 text-sm leading-5 font-boldness tdcolor">324</td>                                  
+                          		</tr>
+
+								<tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="Sheep" width="150px">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b">
+                                         <label class="inline-flex items-center mt-3">
+								                <input type="radio" class="form-radio h-5 w-5 text-red-600" checked><span class="ml-2 text-gray-700 font-boldness tdcolor text-sm">Product name 2</span>
+								         </label>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-sm leading-5 font-boldness tdcolor">12,928</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-sm leading-5 font-boldness tdcolor">$13,984<i class="fa fa-caret-down fa-lg pl-2"></i>&nbsp;$70 (-4%)</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 text-sm leading-5 font-boldness tdcolor">324</td>                                  
+                          		</tr>
+
+                          		<tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="Sheep" width="150px">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b">
+                                         <label class="inline-flex items-center mt-3">
+								                <input type="radio" class="form-radio h-5 w-5 text-red-600" checked><span class="ml-2 text-gray-700 font-boldness tdcolor text-sm">Product name 3</span>
+								         </label>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-sm leading-5 font-boldness tdcolor">78,930</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-sm leading-5 font-boldness tdcolor">$13,984<i class="fa fa-caret-up fa-lg pl-2"></i>&nbsp;$70 (+4%)</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 text-sm leading-5 font-boldness tdcolor">324</td>                                  
+                          		</tr>
+
+
+                        </tbody>
+                    </table>
+<!-- <div class="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans">
+        <div>
+            <p class="text-sm leading-5 text-blue-700">
+                Showing
+                <span class="font-medium">1</span>
+                to
+                <span class="font-medium">200</span>
+                of
+                <span class="font-medium">2000</span>
+                results
+            </p>
+        </div>
+        <div>
+            <nav class="relative z-0 inline-flex shadow-sm">
+                <div	>
+                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Previous" v-on:click.prevent="changePage(pagination.current_page - 1)">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <div>
+                    <a href="#" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-700 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
+                        1
+                    </a>
+                  <a href="#" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-600 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
+                        2
+                    </a>
+                   <a href="#" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-600 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
+                        3
+                    </a>
+                </div>
+                <div v-if="pagination.current_page < pagination.last_page">
+                    <a href="#" class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Next">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div> -->
+                </div>
+            </div>
+
+
+
+
+<!-- FOOTER -->
+
+<footer class="text-gray-600 body-font" style="background-color: #10173C;">
+  <div class="container px-8 pt-12 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+    <div class=" flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+      <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+        <img src="content/images/logo.svg" width="150px">
+       <!--  <span class="ml-3 text-xl footertxtcol">Tailblocks</span> -->
+      </a>
+    </div>
+    <div class="flex-grow flex flex-wrap md:pl-20 mb-10 md:mt-0 mt-10 md:text-left text-center">
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4 footerlineheight" >
+<!--         <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2> -->
+        <nav class="list-none mb-10 leading-loose sm:leading-10">
+          <li>
+            <a class="hover:text-yellow-200 font-thin text-white sm:text-white">Dashboard</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">My collection</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">Discover</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">Research</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">Academy</a>
+          </li>
+        </nav>
+      </div>
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4 footerlineheight" >
+        <!-- <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2> -->
+        <nav class="list-none mb-10 leading-loose sm:leading-10">
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">About us</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">FAQ</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">Support</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">Billing</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">News</a>
+          </li>
+        </nav>
+      </div>
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4 footerlineheight" >
+        <!-- <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2> -->
+        <nav class="list-none mb-10 leading-loose sm:leading-10">
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">Privacy</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">Legal</a>
+          </li>
+          <li>
+            <a class="hover:text-yellow-200 text-white sm:text-white">Press</a>
+          </li>
+        </nav>
+      </div>
+     <div class="lg:w-1/4 md:w-1/2 w-full px-4 footerlineheight">
+      	<span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
+        <a class="text-gray-500" style="color: white;">
+         <img class="transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none" src="Content/images/fb.svg" alt="facebook">
+        </a>
+        <a class="ml-4 text-gray-500" style="color: white;">
+        	<img class="transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none" src="Content/images/insta.svg" alt="instagram">
+          <!-- <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+          </svg> -->
+        </a>
+        <a class="ml-4 text-gray-500" style="color: white;">
+         <img class="transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none" src="Content/images/wechat.svg" alt="weChat">
+        </a>
+        <a class="ml-4 text-gray-500" style="color: white;">
+          <img class="transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none" src="Content/images/whatsapp.svg" alt="Whatsapp">
+        </a>
+      </span>
+
+      </div>
+      
+    </div>
+  </div>
+  <div class="container mx-auto pb-4 px-5 grid-rows-1">
+  	  <span style="justify-content: flex-end; display: flex; color: white;">Copyright Â© 2021 Cards Platform</span>
+  </div>
+<!-- <div class="bg-gray-100">
+    <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
+      <p class="text-gray-500 text-sm text-center sm:text-left">© 2020 Tailblocks —
+        <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">@knyttneve</a>
+      </p>
+      <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
+        <a class="text-gray-500">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+            <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+          </svg>
+        </a>
+      </span>
+    </div>
+  </div> -->
+</footer>
+
+<!-- FOOTER ENDS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function() {
+  $(".nav-toggler").each(function(_, navToggler) {
+    var target = $(navToggler).data("target");
+    $(navToggler).on("click", function() {
+      $(target).animate({
+        height: "toggle"
+      });
+    });
+  });
+});
+
+</script>
+</body>
+</html>

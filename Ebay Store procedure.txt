@@ -1,0 +1,110 @@
+CREATE PROCEDURE [dbo].[sp_GetCardById]
+@Id INT
+AS
+    SELECT * from [dbo].[Card] where Id=@Id
+
+
+_________________________________________
+
+CREATE PROCEDURE [dbo].[sp_GetAllCards]
+AS
+    SELECT * from [dbo].[Card]
+
+_________________________________________
+
+CREATE PROCEDURE [dbo].[sp_GetActiveCardsBySearch]
+@Player NVARCHAR (255)
+AS
+    SELECT * from [dbo].[Card] where Player = @Player
+
+_________________________________________
+
+
+CREATE PROCEDURE [dbo].[sp_GetActiveCards]
+AS
+    SELECT * from [dbo].[Card] where IsActive = 1
+
+_________________________________________
+
+CREATE PROCEDURE [dbo].[sp_GetActiveCardById]
+@Id INT
+AS
+    SELECT * from [dbo].[Card] where Id=@Id AND IsActive = 1
+
+_________________________________________
+
+CREATE PROCEDURE sp_AddUpdateCard (
+                                          
+    @StatementType    NVARCHAR(20)='',
+
+    @Id                  INT=0,
+	@ImgPath   NVARCHAR (MAX) =null,
+    @Player    NVARCHAR (255) =null,
+    @Set       NVARCHAR (255) =null,
+    @Variation NVARCHAR (255) =null,
+    @Grade     NVARCHAR (255) =null,
+    @SalePrice NVARCHAR (255) =null,
+    @CardDate  NVARCHAR (255) =null,
+    @Link      NVARCHAR (MAX) =null,
+    @Charts    NVARCHAR (MAX) =null,
+    @IsActive  INT=0,
+    @CreatedAt           DATETIME=null
+
+                                          )
+AS  
+  BEGIN  
+      IF @StatementType = 'Insert'  
+        BEGIN  
+            INSERT INTO [dbo].[Card]  
+                        (
+    
+	ImgPath,
+    Player,
+    "Set",
+    Variation,
+    Grade,
+    SalePrice,
+    CardDate,
+    Link,
+    Charts,
+	IsActive,
+    CreatedAt 
+
+                        )  
+            VALUES    (
+    @ImgPath,
+    @Player,
+    @Set,
+    @Variation,
+    @Grade,
+    @SalePrice,
+    @CardDate,
+    @Link,
+    @Charts,
+	@IsActive,
+    @CreatedAt 
+
+                        )   
+                        Select * from [dbo].[Card] where Id = SCOPE_IDENTITY()
+        END  
+      IF @StatementType = 'Update'  
+        BEGIN  
+            UPDATE [dbo].[Card]
+            SET      
+	ImgPath = @ImgPath,
+    Player = @Player,
+    "Set" = @Set,
+    Variation = @Variation,
+    Grade = @Grade,
+    SalePrice = @SalePrice,
+    CardDate = @CardDate,
+    Link = @Link,
+    Charts = @Charts,
+    IsActive = @IsActive,
+    CreatedAt = @CreatedAt
+
+            WHERE  Id = @Id  
+            Select * from [dbo].[Card] where Id = @Id
+        END  
+  END
+_________________________________________

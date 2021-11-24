@@ -1,0 +1,170 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/assets/images/Favicons/E-Fav.jpg">
+
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/colors.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script type="text/javascript" src="~/Content/assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/loaders/blockui.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/ui/drilldown.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/ui/fab.min.js"></script>
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="~/Content/assets/js/plugins/forms/styling/uniform.min.js"></script>
+
+    <script type="text/javascript" src="~/Content/assets/js/core/app.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/pages/login.js"></script>
+
+    <script type="text/javascript" src="~/Content/assets/js/plugins/ui/ripple.min.js"></script>
+    <!-- /theme JS files -->
+
+
+</head>
+
+<body class="login-container">
+
+    <!-- Page container -->
+    <div class="page-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Advanced login -->
+                <form action="@Url.Action("PostRegister","Auth")" method="post" class="login-form">
+                    <div class="panel panel-body">
+
+                        <div style="color:@ViewBag.Color">
+                            @ViewBag.Message
+                        </div>
+                        <div class="text-center">
+                            <img src="~/Content/assets/images/p2pLogo.png" width="80" height="80" alt="">
+
+                            <h5 class="content-group-lg">Create new account</h5>
+                        </div>
+
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input type="text" class="form-control" placeholder="Enter your Full Name Here" required name="Name">
+                            <div class="form-control-feedback">
+                                <i class="icon-user text-muted"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input type="text" class="form-control" placeholder="Enter Your Contact Number Here" required name="Contact">
+                            <div class="form-control-feedback">
+                                <i class="icon-phone2 text-muted"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input type="text" class="form-control" onkeyup="validateEmail(this.value)" placeholder="Enter Your Valid Email Here" required name="Email">
+                            <div class="form-control-feedback">
+                                <i class="icon-mail5 text-muted"></i>
+                            </div>
+                            <span class="text-danger" id="emailErrMsg"></span>
+                        </div>
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input type="password" class="form-control" placeholder="Enter Password" required name="Password">
+                            <div class="form-control-feedback">
+                                <i class="icon-lock2 text-muted"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input type="password" class="form-control" placeholder="Confirm Password" required name="_confirmPassword">
+                            <div class="form-control-feedback">
+                                <i class="icon-check text-muted"></i>
+                            </div>
+                        </div>
+
+
+
+                        <center class="form-group">
+
+                            <button type="submit" id="subBtn" class="btn bg-pink-400 btn-block">Register</button>
+                        </center>
+
+
+
+
+                        <a href="@Url.Action("Login","Auth")" class="pull-right content-group text-bold">Back To Sign In</a>
+
+                    </div>
+                </form>
+                <!-- /advanced login -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+
+    <script>
+
+        function validateEmail(email) {
+            if (email != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: "../Admin/ValidateEmail",
+                    dataType: "json",
+                    data: {
+                        email: email, id: -1
+                    },
+                    success: function (response) {
+                        if (response == true) {
+                            $('#emailErrMsg').text("");
+                            $('#subBtn').attr('disabled', false);
+                        }
+                        else {
+                            $('#emailErrMsg').text("Email already exist, try Login");
+                            $('#subBtn').attr('disabled', true);
+                        }
+                    },
+                    error: function ()
+                    {
+                        $('#emailErrMsg').text("");
+                        $('#subBtn').attr('disabled', false);
+                    }
+                });
+            }
+
+        }
+    </script>
+</body>
+</html>
+
+
+

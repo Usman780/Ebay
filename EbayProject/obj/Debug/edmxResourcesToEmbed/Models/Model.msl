@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+    <EntitySetMapping Name="Cards">
+      <EntityTypeMapping TypeName="DatabaseModel.Card">
+        <MappingFragment StoreEntitySet="Card">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+          <ScalarProperty Name="Player" ColumnName="Player" />
+          <ScalarProperty Name="Set" ColumnName="Set" />
+          <ScalarProperty Name="Variation" ColumnName="Variation" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+          <ScalarProperty Name="CardDate" ColumnName="CardDate" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="Charts" ColumnName="Charts" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DatabaseModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_AddUpdateCard" FunctionName="DatabaseModel.Store.sp_AddUpdateCard" />
+    <FunctionImportMapping FunctionImportName="sp_GetActiveCardById" FunctionName="DatabaseModel.Store.sp_GetActiveCardById" />
+    <FunctionImportMapping FunctionImportName="sp_GetActiveCards" FunctionName="DatabaseModel.Store.sp_GetActiveCards" />
+    <FunctionImportMapping FunctionImportName="sp_GetActiveCardsBySearch" FunctionName="DatabaseModel.Store.sp_GetActiveCardsBySearch" />
+    <FunctionImportMapping FunctionImportName="sp_GetAllCards" FunctionName="DatabaseModel.Store.sp_GetAllCards" />
+    <FunctionImportMapping FunctionImportName="sp_GetCardById" FunctionName="DatabaseModel.Store.sp_GetCardById" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,1099 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_VisitorLayout.cshtml";
+}
+
+<img id="loadImg" src='../Content/assets/images/loading.gif' width='150' style="position:fixed; margin-left:40%; z-index:111; display:none;" />
+
+
+
+<input type="hidden" id="chartType" value="1" />
+
+<div class="container px-6 sm:mx-auto pt-10">
+    <div class="text-center text-clr sm:text-left row-span-1 font-bold">Start here to research and chart any card</div>
+</div>
+
+<br />
+<div class="container px-6 sm:mx-auto pt-5 md:grid grid-cols-6 md:gap-4" style="column-count: 2;">
+
+    <div>
+        <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">PLAYER NAME</label>
+        <div class="relative inline-block w-full text-gray-700">
+            <select id="player" onchange="getData(this.value, 1)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                <option value="" disabled selected>Select Player</option>
+                @foreach (var i in ViewBag.Players)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+            SET <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="setSpin"></i>
+        </label>
+        <div class="relative inline-block w-full text-gray-700">
+            <select id="set" onchange="getData2(this.value, 1)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                <option value="" disabled selected>Select Set</option>
+
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">
+            VARIATION <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="variationSpin"></i>
+        </label>
+        <div class="relative inline-block w-full text-gray-700">
+            <select id="variation" onchange="getData3(this.value, 1)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                <option value="" disabled selected>Select Variation</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div>
+        <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-0 sm:pt-0" for="username">
+            GRADES <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="gradeSpin"></i>
+        </label>
+        <div class="relative inline-block w-full text-gray-700">
+            <select id="grade" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                <option value="" disabled selected>Select Grade</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div>
+            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+                Year
+            </label>
+            <div class="relative inline-block w-full text-gray-700">
+                <input type="number" min="1800" step="1" id="year" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" value="@DateTime.Now.Year" placeholder="Search Year">
+            </div>
+        </div>*@
+
+
+
+    <div class="mt-20">
+        <button onclick="generateChart()" class="bg-green-500 text-sm text-white py-3 px-4 rounded-lg mt-10 w-full sm:mt-7 sm:w-36">
+            ADD TO CHART
+        </button>
+    </div>
+    <br />
+    <span class="text-red-600" id="errText"></span>
+</div>
+
+
+
+<div id="tempDiv">
+    <br />
+    <br />
+    <br />
+    <hr />
+    <br />
+    <center>
+        <h1 class="text-red-600 font-boldness" id="tempMsg">Search to View Chart</h1>
+    </center>
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+
+
+
+<div id="dataDiv" hidden>
+    <div class="container px-6 sm:mx-auto pt-9 grid grid-rows-1 gap-4">
+        <div class="text-start text-2xl font-extrabold row-span-1 font-bold text-center sm:text-left">Results</div>
+    </div>
+
+
+
+    <div class="container px-6 sm:mx-auto pt-4 grid grid-rows-1">
+        <hr>
+    </div>
+
+    <div class="grid-rows-1 pt-6 sm:py-8">
+        <h2 class="text-center sm:text-center font-boldness" style="color: #8C8787;">
+            <span id="chartHeading">GRAPH</span>
+
+            <a onclick="toggleCompare()" id="toggleBtn" title="Compare with other" class="pull-right closed" style="margin-right:10%"><i class="icon-menu3"></i></a>
+        </h2>
+
+        <div class="m-20" id="searchCompare" hidden>
+            <br />
+            <br />
+            <div class="container px-6 sm:mx-auto pt-5 md:grid grid-cols-6 md:gap-4" style="column-count: 2;">
+
+                <div>
+                    <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">PLAYER NAME</label>
+                    <div class="relative inline-block w-full text-gray-700">
+                        <select id="player2" onchange="getData(this.value, 2)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                            <option value="" disabled selected>Select Player</option>
+
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+                        SET <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="setSpin2"></i>
+                    </label>
+                    <div class="relative inline-block w-full text-gray-700">
+                        <select id="set2" onchange="getData2(this.value, 2)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                            <option value="" disabled selected>Select Set</option>
+
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">
+                        VARIATION <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="variationSpin2"></i>
+                    </label>
+                    <div class="relative inline-block w-full text-gray-700">
+                        <select id="variation2" onchange="getData3(this.value, 2)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                            <option value="" disabled selected>Select Variation</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div>
+                    <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-0 sm:pt-0" for="username">
+                        GRADES <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="gradeSpin2"></i>
+                    </label>
+                    <div class="relative inline-block w-full text-gray-700">
+                        <select id="grade2" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                            <option value="" disabled selected>Select Grade</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*<div>
+                        <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+                            Year
+                        </label>
+                        <div class="relative inline-block w-full text-gray-700">
+                            <input type="number" min="1800" step="1" id="year2" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" value="@DateTime.Now.Year" placeholder="Search Year">
+                        </div>
+                    </div>*@
+
+
+
+                <div class="mt-20">
+                    <button onclick="generateCompChart()" class="bg-green-500 text-sm text-white py-3 px-4 rounded-lg mt-10 w-full sm:mt-7 sm:w-36">
+                        Compare
+                    </button>
+                </div>
+                <br />
+                <span class="text-red-600" id="errText2"></span>
+            </div>
+            <hr />
+
+        </div>
+
+
+        <br />
+        <div class="container px-6 sm:mx-auto pt-5 md:grid grid-cols-6 md:gap-4">
+            <div class="col-lg-1">
+                <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+                    Start Date
+                </label>
+                <div class="relative inline-block w-full text-gray-700">
+                    <input type="date" id="startDate" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                </div>
+            </div>
+
+            <div>
+                <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+                    End Date
+                </label>
+                <div class="relative inline-block w-full text-gray-700">
+                    <input type="date" id="endDate" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                </div>
+            </div>
+
+            <div class="mt-20">
+                <button onclick="searchChart()" class="bg-green-500 text-sm text-white py-3 px-4 rounded-lg mt-10 w-full sm:mt-7 sm:w-36">
+                    Search
+                </button>
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <div id="chartDiv"></div>
+    </div>
+
+    <div class="container px-6 sm:mx-auto pt-4 grid grid-rows-1">
+        <hr>
+    </div>
+
+    <div class="container px-0 px-6 sm:mx-auto pt-8 pb-8" style="overflow-x: auto;">
+        <h2 class="text-center sm:text-center font-boldness" style="color: #8C8787;">Card Details</h2>
+
+        <div class="align-middle inline-block min-w-full bg-white pt-3 rounded-bl-lg rounded-br-lg">
+            <table class="min-w-full" id="cardTable">
+                <thead>
+                    <tr>
+                        @*<th class="px-4 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Photo</th>*@
+                        <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Player</th>
+                        <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Set</th>
+                        <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Variation</th>
+                        <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Grade</th>
+                        <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Link</th>
+                    </tr>
+                </thead>
+
+                <tbody class="bg-white" id="cardTableBody">
+                    <!--<tr class="font-boldness  text-sm">-->
+                    @*<td class="px-6 py-4 whitespace-no-wrap border-b">
+                            <div class="flex items-center">
+                                <div>
+                                    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="img" width="150">
+                                </div>
+                            </div>
+                        </td>*@
+                    <!--<td class="px-6 py-4 whitespace-no-wrap border-b">
+                                Player name
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b leading-5">
+                            Set
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b leading-5">
+                            Variation
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 leading-5">
+                            Grade
+                        </td>
+                        <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 leading-5">
+                            Price
+                        </td>
+                    </tr>-->
+
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function getData(player, type)
+    {
+        if (player != " ")
+        {
+            if (type == 2)
+            {
+                $('#errText2').text(" ");
+
+                $('#setSpin2').show();
+            }
+            else
+            {
+                $('#searchCompare').hide();
+                $('#toggleBtn').removeClass('opened');
+                $('#toggleBtn').addClass('closed');
+
+                $('#errText').text("");
+
+                $('#setSpin').show();
+            }
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: '@Url.Action("GetSetListByPlayer", "Home")',
+                data: { player: player },
+                success: function (response)
+                {
+                    if (type == 2)
+                    {
+                        $('#set2').empty();
+                        $("#set2").append('<option value="" disabled selected>Select Set</option>');
+
+                        $('#variation2').empty();
+                        $("#variation2").append('<option value="" disabled selected>Select Variation</option>');
+
+                        $('#grade2').empty();
+                        $("#grade2").append('<option value="" disabled selected>Select Grade</option>');
+
+                        var i = 0;
+                        $.each(response, function () {
+                            $("#set2").append('<option value="' + response[i] + '">' + response[i] + '</option>');
+
+                            i++;
+                        });
+
+                        $('#setSpin2').hide();
+                    }
+                    else {
+
+                        $('#set').empty();
+                        $("#set").append('<option value="" disabled selected>Select Set</option>');
+
+                        $('#variation').empty();
+                        $("#variation").append('<option value="" disabled selected>Select Variation</option>');
+
+                        $('#grade').empty();
+                        $("#grade").append('<option value="" disabled selected>Select Grade</option>');
+
+                        var i = 0;
+                        $.each(response, function () {
+                            $("#set").append('<option value="' + response[i] + '">' + response[i] + '</option>');
+
+                            i++;
+                        });
+
+                        $('#setSpin').hide();
+                    }
+                },
+                error: function (response)
+                {
+                    if (type == 2)
+                    {
+                        $('#set2').empty();
+                        $("#set2").append('<option value="" disabled selected>Select Set</option>');
+
+                        $('#setSpin2').hide();
+                    }
+                    else
+                    {
+                        $('#set').empty();
+                        $("#set").append('<option value="" disabled selected>Select Set</option>');
+
+                        $('#setSpin').hide();
+                    }
+
+                    alert('Set Ajax Error');
+                }
+
+            });
+
+        }
+        else
+        {
+            if (type == 2)
+            {
+                $('#set2').empty();
+                $("#set2").append('<option value="" disabled selected>Select Set</option>');
+
+                $('#variation2').empty();
+                $("#variation2").append('<option value="" disabled selected>Select Variation</option>');
+
+                $('#grade2').empty();
+                $("#grade2").append('<option value="" disabled selected>Select Grade</option>');
+            }
+            else
+            {
+                $('#set').empty();
+                $("#set").append('<option value="" disabled selected>Select Set</option>');
+
+                $('#variation').empty();
+                $("#variation").append('<option value="" disabled selected>Select Variation</option>');
+
+                $('#grade').empty();
+                $("#grade").append('<option value="" disabled selected>Select Grade</option>');
+            }
+        }
+
+    }
+
+    function getData2(set, type)
+    {
+        if (set != " ")
+        {
+            var player = "";
+            if (type == 2)
+            {
+                player = $('#player2').val();
+                $('#errText2').text(" ");
+
+                $('#variationSpin2').show();
+            }
+            else
+            {
+                player = $('#player').val();
+
+                $('#searchCompare').hide();
+                $('#toggleBtn').removeClass('opened');
+                $('#toggleBtn').addClass('closed');
+
+                $('#errText').text("");
+
+                $('#variationSpin').show();
+            }
+
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: '@Url.Action("GetVariationListByPlayer", "Home")',
+                data: { player: player, set: set },
+                success: function (response)
+                {
+                    if (type == 2)
+                    {
+                        $('#variation2').empty();
+                        $("#variation2").append('<option value="" disabled selected>Select Variation</option>');
+
+                        $('#grade2').empty();
+                        $("#grade2").append('<option value="" disabled selected>Select Grade</option>');
+
+                        var i = 0;
+                        $.each(response, function ()
+                        {
+                            $("#variation2").append('<option value="' + response[i] + '">' + response[i] + '</option>');
+
+                            i++;
+                        });
+
+                        $('#variationSpin2').hide();
+                    }
+                    else
+                    {
+                        $('#variation').empty();
+                        $("#variation").append('<option value="" disabled selected>Select Variation</option>');
+
+                        $('#grade').empty();
+                        $("#grade").append('<option value="" disabled selected>Select Grade</option>');
+
+                        var i = 0;
+                        $.each(response, function ()
+                        {
+                            $("#variation").append('<option value="' + response[i] + '">' + response[i] + '</option>');
+
+                            i++;
+                        });
+
+                        $('#variationSpin').hide();
+                    }
+                },
+                error: function (response)
+                {
+                    if (type == 2)
+                    {
+                        $('#variation2').empty();
+                        $("#variation2").append('<option value="" disabled selected>Select Variation</option>');
+
+                        $('#variationSpin2').hide();
+                    }
+                    else
+                    {
+                        $('#variation').empty();
+                        $("#variation").append('<option value="" disabled selected>Select Variation</option>');
+
+                        $('#variationSpin').hide();
+                    }
+
+                    alert('variation Ajax Error');
+                }
+
+            });
+
+        }
+        else
+        {
+            if (type == 2)
+            {
+                $('#grade2').empty();
+                $("#grade2").append('<option value="" disabled selected>Select Grade</option>');
+            }
+            else
+            {
+                $('#grade').empty();
+                $("#grade").append('<option value="" disabled selected>Select Grade</option>');
+            }
+        }
+
+    }
+
+    function getData3(variation, type)
+    {
+        if (variation != " ")
+        {
+            var player = "";
+            var set = "";
+            if (type == 2)
+            {
+                player = $('#player2').val();
+                set = $('#set2').val();
+
+                $('#errText2').text(" ");
+
+                $('#gradeSpin2').show();
+            }
+            else
+            {
+                player = $('#player').val();
+                set = $('#set').val();
+
+                $('#searchCompare').hide();
+                $('#toggleBtn').removeClass('opened');
+                $('#toggleBtn').addClass('closed');
+
+                $('#errText').text("");
+
+                $('#gradeSpin').show();
+            }
+
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: '@Url.Action("GetGradeListByPlayer", "Home")',
+                data: { player: player, set: set, variation: variation },
+                success: function (response)
+                {
+                    if (type == 2)
+                    {
+                        $('#grade2').empty();
+                        $("#grade2").append('<option value="" disabled selected>Select Grade</option>');
+
+                        var i = 0;
+                        $.each(response, function ()
+                        {
+                            $("#grade2").append('<option value="' + response[i] + '">' + response[i] + '</option>');
+
+                            i++;
+                        });
+
+                        $('#gradeSpin2').hide();
+                    }
+                    else
+                    {
+                        $('#grade').empty();
+                        $("#grade").append('<option value="" disabled selected>Select Grade</option>');
+
+                        var i = 0;
+                        $.each(response, function ()
+                        {
+                            $("#grade").append('<option value="' + response[i] + '">' + response[i] + '</option>');
+
+                            i++;
+                        });
+
+                        $('#gradeSpin').hide();
+                    }
+                },
+                error: function (response)
+                {
+                    if (type == 2)
+                    {
+                        $('#grade2').empty();
+                        $("#grade2").append('<option value="" disabled selected>Select Grade</option>');
+
+                        $('#gradeSpin2').hide();
+                    }
+                    else
+                    {
+                        $('#grade').empty();
+                        $("#grade").append('<option value="" disabled selected>Select Grade</option>');
+
+                        $('#gradeSpin').hide();
+                    }
+
+                    alert('Grade Ajax Error');
+                }
+
+            });
+
+        }
+        else
+        {
+            if (type == 2)
+            {
+                $('#grade2').empty();
+                $("#grade2").append('<option value="" disabled selected>Select Grade</option>');
+            }
+            else
+            {
+                $('#grade').empty();
+                $("#grade").append('<option value="" disabled selected>Select Grade</option>');
+            }
+        }
+
+    }
+
+    function toggleCompare()
+    {
+        if ($('#toggleBtn').hasClass('closed'))
+        {
+            $('#loadImg').show();
+
+            var player = $.trim($('#player').val());
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: '@Url.Action("GetPlayerListExcept", "Home")',
+                data: { player: player },
+                success: function (response)
+                {
+                    if (response == "0")
+                    {
+                        alert("No Record found!");
+                        $('#loadImg').hide();
+                    }
+                    else
+                    {
+                        $('#player2').empty();
+                        $("#player2").append('<option value="" disabled selected>Select Player</option>');
+
+                        var i = 0;
+                        $.each(response, function ()
+                        {
+                            $("#player2").append('<option value="' + response[i] + '">' + response[i] + '</option>');
+
+                            i++;
+                        });
+
+                        $('#searchCompare').toggle();
+
+                        $('#loadImg').hide();
+                        $('#toggleBtn').removeClass('closed');
+                        $('#toggleBtn').addClass('opened');
+                    }
+                },
+                error: function (response)
+                {
+                    alert('Player2 Ajax Error');
+                }
+            });
+
+        }
+        else
+        {
+            $('#toggleBtn').removeClass('opened');
+            $('#toggleBtn').addClass('closed');
+
+            $('#searchCompare').toggle();
+        }
+    }
+
+
+    function generateChart()
+    {
+        var player = $.trim($('#player').val());
+        var set = $.trim($('#set').val());
+        var variation = $.trim($('#variation').val());
+        var grade = $.trim($('#grade').val());
+        //var year = $.trim($('#year').val());
+
+        if (player != "" && set != "" && variation != "" && grade != "")
+        {
+            $('#chartType').val(1);
+
+            $('#errText').text("");
+            $('#loadImg').show();
+
+            $('#searchCompare').hide();
+            $('#toggleBtn').removeClass('opened');
+            $('#toggleBtn').addClass('closed');
+
+            $('#startDate').val("");
+            $('#endDate').val("");
+
+            getCardTableData(player, set, variation, grade);
+        }
+        else
+        {
+            $('#errText').text("All Fields Required");
+        }
+    }
+
+
+    function getCardTableData(player, set, variation, grade)
+    {
+        $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: '@Url.Action("GetCardTableData", "Home")',
+            data: { player: player, set: set, variation: variation, grade: grade },
+            success: function (response)
+            {
+                if (response == "0")
+                {
+                    $('#tempMsg').text("No Record found!");
+                    $('#loadImg').hide();
+
+                    $('#tempDiv').show();
+                    $('#dataDiv').hide();
+                }
+                else
+                {
+                    getChartData(player, set, variation, grade);
+
+                    $('#tempDiv').hide();
+                    $('#dataDiv').show();
+
+                    $('#cardTableBody').empty();
+
+                    $("#cardTableBody").append('<tr class="font-boldness  text-sm">' +
+                        '<td class="px-6 py-4 whitespace-no-wrap border-b">' +
+                            response.Player +
+                        '</td>' +
+                        '<td class="px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                            response.Set +
+                        '</td>' +
+                        '<td class="px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                            response.Variation +
+                        '</td>' +
+                        '<td class="px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                            response.Grade +
+                        '</td>' +
+                        '<td class="px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                            '<a href="' + response.Link + '" target="_blank"><span class="text-blue-400"><i class="icon-link"></i> ebay</span></a>' +
+                        '</td>' +
+                    '</tr>');
+
+                }
+            },
+            error: function (response)
+            {
+                alert('Card Table Ajax Error');
+            }
+        });
+    }
+
+
+    function generateCompChart()
+    {
+        var player = $.trim($('#player').val());
+        var set = $.trim($('#set').val());
+        var variation = $.trim($('#variation').val());
+        var grade = $.trim($('#grade').val());
+        //var year = $.trim($('#year').val());
+
+        var player2 = $.trim($('#player2').val());
+        var set2 = $.trim($('#set2').val());
+        var variation2 = $.trim($('#variation2').val());
+        var grade2 = $.trim($('#grade2').val());
+        //var year2 = $.trim($('#year2').val());
+
+        if (player == "" || set == "" || variation == "" || grade == "" )
+        {
+            $('#errText').text("All Fields Required");
+        }
+        else if (player2 == "" || set2 == "" || variation2 == "" || grade2 == "")
+        {
+            $('#errText2').text("All Fields Required");
+        }
+        else
+        {
+            $('#startDate').val("");
+            $('#endDate').val("");
+
+            $('#chartType').val(2);
+
+            $('#errText').text("");
+            $('#errText2').text("");
+
+            $('#loadImg').show();
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: '@Url.Action("GetCardTableData", "Home")',
+                data: { player: player2, set: set2, variation: variation2, grade: grade2 },
+                success: function (response)
+                {
+                    if (response == "0")
+                    {
+                        alert("No Record found!");
+                        $('#loadImg').hide();
+                    }
+                    else
+                    {
+                        $('#cardTable tr:nth-child(2)').remove();
+
+                        $("#cardTableBody").append('<tr class="font-boldness  text-sm">' +
+                            '<td class="px-6 py-4 whitespace-no-wrap border-b">' +
+                                response.Player +
+                            '</td>' +
+                            '<td class="px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                                response.Set +
+                            '</td>' +
+                            '<td class="px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                                response.Variation +
+                            '</td>' +
+                            '<td class="px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                                response.Grade +
+                            '</td>' +
+                            '<td class="px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                                '<a href="' + response.Link + '" target="_blank"><span class="text-blue-400"><i class="icon-link"></i> ebay</span></a>' +
+                            '</td>' +
+                        '</tr>');
+
+                        getCompChartData(player, set, variation, grade, player2, set2, variation2, grade2);
+                    }
+                },
+                error: function (response)
+                {
+                    alert('Comparison Card Table Ajax Error');
+                }
+            });
+        }
+
+    }
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    //google.charts.setOnLoadCallback(drawChart);
+
+    function searchChart()
+    {
+        var startDate = $.trim($('#startDate').val());
+        var endDate = $.trim($('#endDate').val());
+
+        if (startDate == "" || endDate == "") {
+            alert("Empty date field not allowed");
+        }
+        else
+        {
+            var days = (Date.parse(endDate) - Date.parse(startDate)) / 86400000;
+
+            if (days < 0)
+            {
+                alert("End date must be grater then or equal to Start date");
+            }
+            else
+            {
+                var player = $.trim($('#player').val());
+                var set = $.trim($('#set').val());
+                var variation = $.trim($('#variation').val());
+                var grade = $.trim($('#grade').val());
+                //var year = $.trim($('#year').val());
+
+                var player2 = $.trim($('#player2').val());
+                var set2 = $.trim($('#set2').val());
+                var variation2 = $.trim($('#variation2').val());
+                var grade2 = $.trim($('#grade2').val());
+                //var year2 = $.trim($('#year2').val());
+
+
+                if ($('#chartType').val() == 1)
+                {
+                    if (player == "" || set == "" || variation == "" || grade == "")
+                    {
+                        $('#errText').text("All Fields Required");
+                    }
+                    else
+                    {
+                        $('#loadImg').show();
+
+                        getChartData(player, set, variation, grade, startDate, endDate);
+                    }
+                }
+                else
+                {
+                    if (player2 == "" || set2 == "" || variation2 == "" || grade2 == "")
+                    {
+                        $('#errText2').text("All Fields Required");
+                    }
+                    else
+                    {
+                        $('#loadImg').show();
+
+                        getCompChartData(player, set, variation, grade, player2, set2, variation2, grade2, startDate, endDate);
+                    }
+                }
+            }
+        }
+
+    }
+
+    function getChartData(player, set, variation, grade, sdate, edate)
+    {
+        $.ajax({
+            url: '@Url.Action("GetChartData", "Home")',
+            dataType: "json",
+            type: "post",
+            data: { player: player, set: set, variation: variation, grade: grade, startDate: sdate, endDate: edate },
+            error: function (xhr, status, error)
+            {
+                alert("Chart Ajax Error");
+                $('#loadImg').hide();
+            },
+            success: function (response)
+            {
+
+                $('#chartDiv').empty();
+                $('#chartHeading').text(player + "'s Price Chart");
+
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Date');
+                dataTable.addColumn('number', 'Price');
+                dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+
+
+                var i = 0;
+                $.each(response, function ()
+                {
+                    dataTable.addRows([
+                        [String(response[i].date), parseFloat(response[i].price), '<div style="padding:5px; width:250px;"><b>Date: </b>' + response[i].date + '<br><b>Price: </b>$' + response[i].price + '<br><b>Player : </b> ' + player + '<br><b>Set : </b> ' + set + '<br><b>Variation : </b>' + variation + '<br><b>Grade: </b>' + grade + ' </div>']
+                    ]);
+
+                    i++;
+                });
+
+                //dataTable.addColumn('number', 'Price');
+                //dataTable.addRows([
+                //    ["06/18/2021", 150, '<div style="padding:5px; width:250px;"><b>Date: </b>06/18/2021<br><b>Price: </b>$150<br><b>Player : </b> abc<br><b>Set : </b> set<br><b>Variation : </b>variation<br><b>Grade: </b>grade </div>']
+                //]);
+
+                var options =
+                {
+                    curveType: 'function', //to make curves in graph
+                    hAxis: { title: 'Date' },
+                    vAxis: { title: 'Price $' },
+                    pointSize: 7,
+                    selectionMode: 'multiple',
+                    legend: 'none',
+                    tooltip: { isHtml: true }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chartDiv'));
+
+                chart.draw(dataTable, options);
+
+                $('#loadImg').hide();
+            }
+        });
+    }
+
+
+    function getCompChartData(player, set, variation, grade, player2, set2, variation2, grade2, sdate, edate)
+    {
+        $.ajax({
+            url: '@Url.Action("GetCompChartData", "Home")',
+            dataType: "json",
+            type: "post",
+            data: { player: player, set: set, variation: variation, grade: grade, player2: player2, set2: set2, variation2: variation2, grade2: grade2, startDate: sdate, endDate: edate },
+            error: function (xhr, status, error)
+            {
+                alert("Compare Chart Ajax Error");
+                $('#loadImg').hide();
+            },
+            success: function (response)
+            {
+                $('#chartDiv').empty();
+                $('#chartHeading').text(player + " Vs " + player2 + " Price Chart");
+
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Date');
+                dataTable.addColumn('number', 'Price');
+                dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+                dataTable.addColumn('number', 'Price');
+                dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+
+                var i = 0;
+                $.each(response, function ()
+                {
+                    dataTable.addRows([
+                        [String(response[i].date), parseFloat(response[i].price), '<div style="padding:5px; width:250px;"><b>Date: </b>' + response[i].date + '<br><b>Price: </b>$' + response[i].price + '<br><b>Player : </b> ' + player + '<br><b>Set : </b> ' + set + '<br><b>Variation : </b>' + variation + '<br><b>Grade: </b>' + grade + ' </div>',
+                            parseFloat(response[i].price2), '<div style="padding:5px; width:250px;"><b>Date: </b>' + response[i].date + '<br><b>Price: </b>$' + response[i].price2 + '<br><b>Player : </b> ' + player2 + '<br><b>Set : </b> ' + set2 + '<br><b>Variation : </b>' + variation2 + '<br><b>Grade: </b>' + grade2 + ' </div>']
+                    ]);
+
+                    i++;
+                });
+
+
+                var options =
+                {
+                    curveType: 'function',
+                    hAxis: { title: 'Date' },
+                    vAxis: { title: 'Price $' },
+                    pointSize: 7,
+                    selectionMode: 'multiple',
+                    legend: 'none',
+                    tooltip: { isHtml: true }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chartDiv'));
+
+                chart.draw(dataTable, options);
+
+                $('#loadImg').hide();
+            }
+        });
+
+    }
+
+
+</script>
+
+<script>
+    window.onresize = reloadChart;
+
+    function reloadChart()
+    {
+        var player = $.trim($('#player').val());
+        var set = $.trim($('#set').val());
+        var variation = $.trim($('#variation').val());
+        var grade = $.trim($('#grade').val());
+
+        var player2 = $.trim($('#player2').val());
+        var set2 = $.trim($('#set2').val());
+        var variation2 = $.trim($('#variation2').val());
+        var grade2 = $.trim($('#grade2').val());
+
+        var startDate = $.trim($('#startDate').val());
+        var endDate = $.trim($('#endDate').val());
+
+        if (player != "" && set != "" && variation != "" && grade != "" && player2 != "" && set2 != "" && variation2 != "" && grade2 != "")
+        {
+            $('#loadImg').show();
+
+            getCompChartData(player, set, variation, grade, player2, set2, variation2, grade2, startDate, endDate);
+        }
+        else if (player != "" && set != "" && variation != "" && grade != "")
+        {
+            $('#loadImg').show();
+
+            getChartData(player, set, variation, grade, startDate, endDate);
+        }
+        else
+        {
+            $('#loadImg').hide();
+        }
+    }
+
+</script>

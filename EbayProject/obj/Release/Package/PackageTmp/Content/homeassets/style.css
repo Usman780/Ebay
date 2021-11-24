@@ -1,0 +1,127 @@
+/*STYLING HEADER*/
+.bg-gray-800 {
+    --tw-bg-opacity: 1;
+    background-color: #10173C;
+}
+
+.bg-gray-900 {
+    --tw-bg-opacity: 1;
+    background-color: #10173C;
+}
+
+.bg-green-500 {
+	background-color: #1BB67F;
+}
+
+.bg-green-500:hover {
+	background-color: #10173C;
+}
+
+.text-clr{
+	color: #233965;
+}
+
+.drtext-style{
+	font-size:12px;
+	color:rgb(16 23 60 / 38%);
+}
+
+.ptbtn{
+    padding-top: 29.75px;
+}
+
+html,
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* navigation 
+ - show navigation always on the large screen devices with (min-width:1024)
+*/
+
+@media (min-width: 1024px) {
+  .top-navbar {
+    display: inline-flex !important;
+  }
+
+.w-2 {
+    width: 17.5rem;
+}
+
+hr{
+	background-color: #ABADBA;
+}
+
+.mll-1{
+	margin-left:-137px;
+}
+
+.mll-3{
+	margin-left: -190px;
+}
+
+.mll-2{
+	margin-left: 40px;
+}
+
+.showing{
+	padding-right: 386px;
+	height:3rem;
+}
+
+.showingicon{
+	padding-right: 396px;
+	height:3rem;
+}
+
+.controlzoom{
+	padding-top: 29px;
+}
+
+.footertxtcol{
+    color: white;
+}
+
+.footerlineheight{
+	line-height: 39px;
+}
+
+.currentColor{
+	background-color: #1BB67F;
+    border-radius: 50px;
+}
+
+.text-red-600{
+	color:red;
+}
+
+.text-red-600{
+	color:red;
+}
+
+.thcolor{
+    color: #767187;
+    font-size: 13px;
+}
+
+.tdcolor{
+	color: #1A1036;
+}
+
+i{
+	color: black;
+}
+
+.font-boldness{
+	font-weight: 600;
+}
+
+@media screen and (min-width: 768px) and (min-width: 736px) {
+  .my-example-class {
+    text-align: center;
+  }
+}
+
+.hover:text-gray-800{
+   color: f7f7f7;
+}

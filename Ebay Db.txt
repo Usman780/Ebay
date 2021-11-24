@@ -1,0 +1,36 @@
+CREATE TABLE [dbo].[User] (
+    [Id]        INT            IDENTITY (1, 1) NOT NULL,
+    [Name]      NVARCHAR (255) NULL,
+    [Contact]   NVARCHAR (255) NULL,
+    [Email]     NVARCHAR (355) NULL,
+    [Password]  NVARCHAR (MAX) NULL,
+    [Role]      INT            NULL,
+    [IsActive]  INT            NULL,
+    [CreatedAt] DATETIME       NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+
+
+------------------------------------------------------
+
+CREATE TABLE [dbo].[Card] (
+    [Id]        INT            IDENTITY (1, 1) NOT NULL,
+    [ImgPath]   NVARCHAR (MAX) NULL,
+    [Player]    NVARCHAR (255) NULL,
+    [Set]       NVARCHAR (255) NULL,
+    [Variation] NVARCHAR (255) NULL,
+    [Grade]     NVARCHAR (255) NULL,
+    [SalePrice] NVARCHAR (255) NULL,
+    [CardDate]  NVARCHAR (255) NULL,
+    [Link]      NVARCHAR (MAX) NULL,
+    [Charts]    NVARCHAR (MAX) NULL,
+    [IsActive]  INT            NULL,
+    [CreatedAt] DATETIME       NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+----------------------------------------------------------
+

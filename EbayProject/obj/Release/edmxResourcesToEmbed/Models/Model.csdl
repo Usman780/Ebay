@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Card">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImgPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Player" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Set" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Variation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Grade" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SalePrice" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CardDate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Charts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Contact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="355" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="Int32" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cards" EntityType="Self.Card" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <FunctionImport Name="sp_AddUpdateCard" EntitySet="Cards" ReturnType="Collection(DatabaseModel.Card)">
+      <Parameter Name="StatementType" Mode="In" Type="String" />
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="ImgPath" Mode="In" Type="String" />
+      <Parameter Name="Player" Mode="In" Type="String" />
+      <Parameter Name="Set" Mode="In" Type="String" />
+      <Parameter Name="Variation" Mode="In" Type="String" />
+      <Parameter Name="Grade" Mode="In" Type="String" />
+      <Parameter Name="SalePrice" Mode="In" Type="String" />
+      <Parameter Name="CardDate" Mode="In" Type="String" />
+      <Parameter Name="Link" Mode="In" Type="String" />
+      <Parameter Name="Charts" Mode="In" Type="String" />
+      <Parameter Name="IsActive" Mode="In" Type="Int32" />
+      <Parameter Name="CreatedAt" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetActiveCardById" EntitySet="Cards" ReturnType="Collection(DatabaseModel.Card)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetActiveCards" EntitySet="Cards" ReturnType="Collection(DatabaseModel.Card)" />
+    <FunctionImport Name="sp_GetActiveCardsBySearch" EntitySet="Cards" ReturnType="Collection(DatabaseModel.Card)">
+      <Parameter Name="Player" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetAllCards" EntitySet="Cards" ReturnType="Collection(DatabaseModel.Card)" />
+    <FunctionImport Name="sp_GetCardById" EntitySet="Cards" ReturnType="Collection(DatabaseModel.Card)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_AddUpdateCard_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="ImgPath" Nullable="true" />
+    <Property Type="String" Name="Player" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Set" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Variation" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Grade" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SalePrice" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="CardDate" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Link" Nullable="true" />
+    <Property Type="String" Name="Charts" Nullable="true" />
+    <Property Type="Int32" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedAt" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_GetActiveCardById_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="ImgPath" Nullable="true" />
+    <Property Type="String" Name="Player" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Set" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Variation" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Grade" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SalePrice" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="CardDate" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Link" Nullable="true" />
+    <Property Type="String" Name="Charts" Nullable="true" />
+    <Property Type="Int32" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedAt" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_GetActiveCards_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="ImgPath" Nullable="true" />
+    <Property Type="String" Name="Player" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Set" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Variation" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Grade" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SalePrice" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="CardDate" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Link" Nullable="true" />
+    <Property Type="String" Name="Charts" Nullable="true" />
+    <Property Type="Int32" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedAt" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_GetActiveCardsBySearch_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="ImgPath" Nullable="true" />
+    <Property Type="String" Name="Player" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Set" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Variation" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Grade" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SalePrice" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="CardDate" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Link" Nullable="true" />
+    <Property Type="String" Name="Charts" Nullable="true" />
+    <Property Type="Int32" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedAt" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_GetAllCards_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="ImgPath" Nullable="true" />
+    <Property Type="String" Name="Player" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Set" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Variation" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Grade" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SalePrice" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="CardDate" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Link" Nullable="true" />
+    <Property Type="String" Name="Charts" Nullable="true" />
+    <Property Type="Int32" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedAt" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_GetCardById_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="ImgPath" Nullable="true" />
+    <Property Type="String" Name="Player" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Set" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Variation" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Grade" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SalePrice" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="CardDate" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Link" Nullable="true" />
+    <Property Type="String" Name="Charts" Nullable="true" />
+    <Property Type="Int32" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedAt" Nullable="true" Precision="23" />
+  </ComplexType>
+</Schema>

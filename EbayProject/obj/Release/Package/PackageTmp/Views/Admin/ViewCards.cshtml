@@ -1,0 +1,406 @@
+﻿
+@{
+    ViewBag.Title = "View Cards";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<img id="loadImg" src='../Content/assets/images/loading.gif' width='150' style="position:fixed; margin-top:20%; margin-left:35%; z-index:111; display:none" />
+
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Do You Want to Delete?</h4>
+                <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer text-center">
+                <a class="btn btn-danger" id="deleteId">Yes</a>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="deleteAllModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+                <form action="@Url.Action("DeleteAllCard","Admin")" method="post">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Do you want to Clear record?</h4>
+                <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label class="text-bold">Password: <span class="text-danger">*</span></label>
+                        <input type="password" id="dltAllPw" class="form-control" required name="Pw" placeholder="Password is required to confirm">
+                    </div>
+
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer text-center">
+                <button class="btn btn-danger" onclick="hideModal()" type="submit">Confirm</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            </div>
+                </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-center text-bold">Add New Card</h5>
+                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form action="@Url.Action("PostAddCard","Admin")" method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label class="text-bold">Player Name: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" required name="Player">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Set: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" required name="Set">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Variation: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="" required name="Variation">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Grade: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="" required name="Grade">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Sale Price: </label>
+                        <input type="number" min="0.01" step="0.01" class="form-control" name="SalePrice">
+                    </div>
+
+                    @*<div class="form-group">
+                        <label class="text-bold">Date: </label>
+                        <input type="date" class="form-control" name="CardDate">
+                    </div>*@
+
+                    <div class="form-group">
+                        <label class="text-bold">Link: </label>
+                        <input type="text" class="form-control" name="Link">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Charts: </label>
+                        <textarea class="form-control" style="resize:vertical;" placeholder="Json String [{...}]" name="Charts">[]</textarea>
+                    </div>
+
+
+                    @*<div class="form-group">
+                        <label class="text-bold">Image: </label><br />
+                        <input type="file" class="form-control" name="cardFile" accept="image/x-png,image/jpeg">
+                        <span class="text-danger">.png or jpg allowed only</span>
+                    </div>*@
+
+                    <div class="modal-footer">
+                        <button type="submit" id="addSubBtn" value="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="updateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="text-center text-bold">Update Card</h5>
+                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form action="@Url.Action("PostUpdateCard","Admin")" method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" name="Id" id="updId" />
+
+                    <div class="form-group">
+                        <label class="text-bold">Player Name: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" required name="Player" id="updPlayer">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Set: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" required name="Set" id="updSet">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Variation: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="" required name="Variation" id="updVariation">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Grade: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="" required name="Grade" id="updGrade">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Sale Price: </label>
+                        <input type="number" min="0.01" step="0.01" class="form-control" name="SalePrice" id="updSalePrice">
+                    </div>
+
+                    @*<div class="form-group">
+                        <label class="text-bold">Date: </label>
+                        <input type="date" class="form-control" name="CardDate" id="updCardDate">
+                    </div>*@
+
+                    <div class="form-group">
+                        <label class="text-bold">Link: </label>
+                        <input type="text" class="form-control" name="Link" id="updLink">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Charts: </label>
+                        <textarea class="form-control" style="resize:vertical;" placeholder="Json String [{...}]" name="Charts" id="updCharts"></textarea>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="submit" value="submit" class="btn btn-primary" id="updSubBtn">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div class="clearfix">
+
+    <div class="row m-10">
+
+        <ul class="icons-list">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle btn btn-primary pull-right" data-toggle="dropdown"> Action </a>
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li><a data-toggle="modal" data-target="#addModal">Add Card</a></li>
+                    <li><a class="text-danger" data-toggle="modal" data-target="#deleteAllModal">Delete All</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+    <h3 class="text-center">
+        <u>Cards List</u>
+    </h3>
+</div>
+<br />
+
+<div class="m-10">
+
+    <div style="font-weight:bold; color:@ViewBag.Color ; margin-left:10px;" id="alertMsg">
+        @ViewBag.Message
+    </div>
+
+    <div class="datatable-scroll table-bordered p-10" style="overflow:auto">
+        <table class="table no-footer table-responsive table-striped p-5" id="cardTable">
+            <thead class="bg-blue-400">
+                <tr>
+                    <th class="text-bold" hidden>
+                        ..,
+                    </th>
+                    <th class="text-bold">
+                        Player
+                    </th>
+                    <th class="text-bold">
+                        Set
+                    </th>
+                    <th class="text-bold">
+                        Variation
+                    </th>
+                    <th class="text-bold">
+                        Grade
+                    </th>
+                    <th class="text-bold">
+                        Sale Price
+                    </th>
+                    @*<th class="text-bold">
+                        Date
+                    </th>*@
+                    <th class="text-center">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+<script>
+
+    $('#cardTable').DataTable(
+    {
+        "ajax":
+        {
+            "url": '@Url.Action("GetCardList", "Admin")',
+            "type": "POST",
+            "datatype": "json",
+        },
+        'columns':
+        [
+            { "data": "Hidden", "name": "" },
+            { "data": "Player", "name": "Player" },
+            { "data": "Set", "name": "Set" },
+            { "data": "Variation", "name": "Variation" },
+            { "data": "Grade", "name": "Grade" },
+            { "data": "SalePrice", "name": "SalePrice" },
+            //{ "data": "CardDate", "name": "CardDate" },
+            { "data": "Action", "name": "" },
+        ],
+        'columnDefs':
+        [
+            
+            {
+                "targets": 0,
+                'className': 'col-lg-1',
+                "visible": false,
+                "searchable": false,
+                "render": function (data, type, full, meta) {
+                    return null;
+                }
+            },
+            {
+                "targets": 1,
+                'className': 'col-lg-1',
+                "render": function (data, type, full, meta) {
+                    return full.Player;
+                }
+            },
+            {
+                "targets": 2,
+                'className': 'col-lg-2',
+                "render": function (data, type, full, meta) {
+                    return full.Set;
+                }
+            },
+            {
+                "targets": 3,
+                'className': 'col-lg-1',
+                "render": function (data, type, full, meta) {
+                    return full.Variation;
+                }
+            },
+            {
+                "targets": 4,
+                'className': 'col-lg-1',
+                "render": function (data, type, full, meta) {
+                    return full.Grade;
+                }
+            },
+            {
+                "targets": 5,
+                'className': 'col-lg-1',
+                "render": function (data, type, full, meta) {
+                    return full.SalePrice;
+                }
+            },
+            //{
+            //    "targets": 6,
+            //    'className': 'col-lg-1',
+            //    "render": function (data, type, full, meta) {
+            //        return full.CardDate;
+            //    }
+            //},
+            {
+                "targets": 6,
+                'className': 'col-lg-1',
+                "render": function (data, type, full, meta)
+                {
+                    return '<ul class="icons-list text-center"> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-menu9"></i> </a> <ul class="dropdown-menu dropdown-menu-right"> ' +
+                        '<li><a class="text-primary" onclick="updateFunction(' + full.Id + ')"><i class="icon-pencil"></i> Edit</a></li>' +
+                        '<li><a class="text-danger" onclick="deleteFunction(' + full.Id + ')" data-toggle="modal" data-target="#deleteModal"><i class="glyphicon glyphicon-floppy-remove"></i> Delete</a></li>' +
+                        '</ul></li></ul>';
+                }
+            },
+        ],
+       "serverSide": "true",
+        "processing": "true",
+        "language":
+        {
+            "processing": "<img src='../Content/assets/images/loading.gif' width='150'/>",
+            "search": "<span>Search :</span> _INPUT_",
+            "searchPlaceholder": "Type to Filter",
+            "lengthMenu": "<span>Show :</span> _MENU_",
+            "paginate": { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+        },
+    });
+
+
+    function updateFunction(id)
+    {
+        $("#loadImg").show();
+
+        $.ajax({
+            type: 'POST',
+            url: "../Admin/GetCardById",
+            dataType: "json",
+            data: {
+                id: id
+            },
+            success: function (response)
+            {
+                $("#updId").val(response.Id);
+                $("#updPlayer").val(response.Player);
+                $("#updSet").val(response.Set);
+                $("#updVariation").val(response.Variation);
+                $("#updGrade").val(response.Grade);
+                $("#updSalePrice").val(response.SalePrice);
+                //$("#updCardDate").val(response.CardDate);
+                $("#updLink").val(response.Link);
+                $("#updCharts").val(response.Charts);
+                
+                $("#loadImg").hide();
+                $("#updateModal").modal('show');
+            },
+            error: function ()
+            {
+                $("#loadImg").hide();
+                alert("ajax Failed");
+            }
+        });
+
+    }
+
+
+    function deleteFunction(id) {
+        var a = document.getElementById('deleteId');
+        a.href = "../Admin/DeleteCard?id=" + id + "&way=@ViewBag.Way";
+    }
+
+
+    function hideModal()
+    {
+        if ($.trim($('#dltAllPw').val()) != "") {
+            $('#deleteAllModal').hide();
+        }
+    }
+</script>

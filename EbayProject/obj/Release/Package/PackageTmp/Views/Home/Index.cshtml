@@ -1,0 +1,1323 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_VisitorLayout.cshtml";
+}
+
+<style>
+    @@media screen and (max-width: 1005px) {
+        #resetDiv {
+            display:block;
+        }
+    }
+
+    @@media screen and (max-width: 650px) {
+
+        #addChartBtn {
+            margin-top: 37px;
+        }
+
+        #resetBtn {
+            margin-top: 30px;
+        }
+    }
+
+
+    #player::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+
+    #set::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+
+    #variation::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+
+    #grade::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+
+    div.google-visualization-tooltip {
+        top: 1238px;
+        left: 1089px;
+        width: 202px;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 4px 10px #00000033;
+        border: 1px solid #EFEFEF;
+        border-radius: 10px;
+        opacity: 1;
+        font-family: "Poppins";
+        padding:10px;
+    }
+
+
+</style>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<div id="mainContent">
+    @*<img id="loadImg" src='../Content/assets/images/loading.gif' width='150' style="position:fixed; margin-left:40%; z-index:111; display:none;" />*@
+    <i id="loadImg" class="icon-spinner spinner icon-3x" width='150' style="position:fixed; margin-top:250px; margin-left:45%; z-index:111; display:none;"></i>
+
+
+
+    <br />
+    <br />
+    <div class="container px-6 sm:mx-auto pt-10">
+        <div class="text-center text-clr sm:text-left row-span-1 font-bold">Start here to research and chart any card</div>
+    </div>
+
+    <br />
+    <div class="container px-6 sm:mx-auto pt-5 md:grid grid-cols-6 md:gap-2" style="column-count: 2;">
+
+        <div>
+
+            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">PLAYER NAME</label>
+            <div class="relative inline-block w-full text-gray-700">
+                <input id="player" autocomplete="off" list="players" spellcheck="false" onchange="getSetData(this.value)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Select Player">
+                @if (ViewBag.Players.Count > 0)
+                {
+                    <datalist id="players">
+                        @foreach (var c in ViewBag.Players)
+                        {
+                            <option data-value="@c">@c</option>
+                        }
+                    </datalist>
+
+                }
+                @*<select id="player" onchange="getSetData(this.value)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                    <option value="" disabled selected>Select Player</option>
+                    @foreach (var i in ViewBag.Players)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>*@
+                <div class="absolute inset-y-0 right-2 flex items-center px-2 pointer-events-none">
+                    <i class="fa fa-caret-down fa-lg" style="color:#D1D1D1"></i>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+                SET <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="setSpin1"></i>
+            </label>
+            <div class="relative inline-block w-full text-gray-700">
+                <input id="set" autocomplete="off" list="sets" spellcheck="false" onchange="getVariationData(this.value)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Select Set">
+                    <datalist id="sets">
+                        
+                    </datalist>
+
+                @*<select id="set" onchange="getVariationData(this.value)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+            <option value="" disabled selected>Select Set</option>
+
+        </select>*@
+                <div class="absolute inset-y-0 right-2 flex items-center px-2 pointer-events-none">
+                    <i class="fa fa-caret-down fa-lg" style="color:#D1D1D1"></i>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">
+                VARIATION <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="variationSpin1"></i>
+            </label>
+            <div class="relative inline-block w-full text-gray-700">
+                <input id="variation" autocomplete="off" list="variations" spellcheck="false" onchange="getGradeData(this.value)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Select Variation">
+                <datalist id="variations">
+                </datalist>
+                @*<select id="variation" onchange="getGradeData(this.value)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+            <option value="" disabled selected>Select Variation</option>
+        </select>*@
+                <div class="absolute inset-y-0 right-2 flex items-center px-2 pointer-events-none">
+                    <i class="fa fa-caret-down fa-lg" style="color:#D1D1D1"></i>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div>
+            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-0 sm:pt-0" for="username">
+                GRADES <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="gradeSpin1"></i>
+            </label>
+            <div class="relative inline-block w-full text-gray-700">
+                <input id="grade" autocomplete="off" list="grades" spellcheck="false" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Select Grade">
+                <datalist id="grades">
+                </datalist>
+                @*<select id="grade" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+            <option value="" disabled selected>Select Grade</option>
+        </select>*@
+                <div class="absolute inset-y-0 right-2 flex items-center px-2 pointer-events-none">
+                    <i class="fa fa-caret-down fa-lg" style="color:#D1D1D1"></i>
+                </div>
+            </div>
+        </div>
+         
+
+        @*<div>
+            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+                Year
+            </label>
+            <div class="relative inline-block w-full text-gray-700">
+                <input type="number" min="1800" step="1" id="year" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" value="@DateTime.Now.Year" placeholder="Search Year">
+            </div>
+        </div>*@
+
+    <div class="md:flex md:w-80" style="">
+        <button onclick="setData()" id="addChartBtn" style="height:47px;" class="bg-green-500 text-sm text-white py-3 px-3 ml-10 rounded-lg mt-12 w-full sm:mt-7 ">
+            ADD TO CHART
+        </button>
+        <button onclick="resetPage()" id="resetBtn" style="background-color:rgb(221, 221, 221); color:#666666; height:47px;" class="text-sm text-white py-3 px-4 ml-10 rounded-lg mt-12 w-full sm:mt-7">
+            RESET
+        </button>
+    </div>
+
+        @*<div class="flex w-36" style="margin-left:-15px;">
+            
+        </div>*@
+
+        @*<div class="mt-20">
+            <button onclick="setData()" class="bg-green-500 text-sm text-white py-3 px-4 rounded-lg mt-10 w-full sm:mt-7 sm:w-36">
+                ADD TO CHART
+            </button>
+
+
+
+        </div>
+
+        <div class="mt-20" id="resetDiv">
+            <button onclick="resetPage()" style="background-color:rgb(221, 221, 221); color:#666666;" class="bg-red-500 text-sm text-white py-3 px-4 rounded-lg mt-10 w-full sm:mt-7 sm:w-36">
+                Reset
+            </button>
+        </div>*@
+
+
+    </div>
+    <div class="row ml-20 pl-20">
+
+        <span class="text-red-600" id="errText"></span>
+    </div>
+
+
+    
+    <div class="m-20 p-20" id="tempDiv">
+    <div class="m-20">
+        <br />
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <center>
+            <h1 style="font: normal normal medium 30px/50px Poppins; color:#D1D1D1;" id="tempMsg">There were no completed sales for this card in the period you selected.</h1>
+        </center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="overflow-x: auto;">
+
+            <div class="align-middle inline-block min-w-full bg-white pt-3 rounded-bl-lg rounded-br-lg">
+                <table class="min-w-full" id="cardTable">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Player&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Average Completed Price&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Set&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Variation&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Grade&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Link&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                        </tr>
+                    </thead>
+
+                </table>
+                <hr />
+
+                <br />
+                <br />
+                <br />
+                <center>
+                    <h1 style="font: normal normal medium 30px/50px Poppins; color:#D1D1D1;" id="tempMsg">There were no completed sales for this card in the period you selected.</h1>
+                </center>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <input type="hidden" id="cardId1" />
+    <input type="hidden" id="player1" />
+    <input type="hidden" id="set1" />
+    <input type="hidden" id="variation1" />
+    <input type="hidden" id="grade1" />
+
+    <input type="hidden" id="cardId2" />
+    <input type="hidden" id="player2" />
+    <input type="hidden" id="set2" />
+    <input type="hidden" id="variation2" />
+    <input type="hidden" id="grade2" />
+
+    <input type="hidden" id="cardId3" />
+    <input type="hidden" id="player3" />
+    <input type="hidden" id="set3" />
+    <input type="hidden" id="variation3" />
+    <input type="hidden" id="grade3" />
+
+    <div id="dataDiv" hidden>
+        <div class="container px-6 sm:mx-auto pt-9 grid grid-rows-1 gap-4">
+            <div class="text-start text-2xl font-extrabold row-span-1 font-bold text-center sm:text-left">Results</div>
+        </div>
+
+
+
+        <div class="container px-6 sm:mx-auto pt-4 grid grid-rows-1">
+            <hr>
+        </div>
+
+        <div class="grid-rows-1 pt-6 sm:py-8">
+            <h2 class="text-center sm:text-center font-boldness" style="color: #8C8787;">
+                <span id="chartHeading">GRAPH</span>
+
+                @*<a onclick="toggleCompare()" id="toggleBtn" title="Compare with other" class="pull-right closed" style="margin-right:10%"><i class="icon-menu3"></i></a>*@
+            </h2>
+
+            @*<div class="m-20" id="searchCompare" hidden>
+                    <br />
+                    <br />
+                    <div class="container px-6 sm:mx-auto pt-5 md:grid grid-cols-6 md:gap-4" style="column-count: 2;">
+
+                        <div>
+                            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">PLAYER NAME</label>
+                            <div class="relative inline-block w-full text-gray-700">
+                                <select id="player2" onchange="getData(this.value, 2)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                                    <option value="" disabled selected>Select Player</option>
+
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0" for="username">
+                                SET <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="setSpin2"></i>
+                            </label>
+                            <div class="relative inline-block w-full text-gray-700">
+                                <select id="set2" onchange="getData2(this.value, 2)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                                    <option value="" disabled selected>Select Set</option>
+
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2" for="username">
+                                VARIATION <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="variationSpin2"></i>
+                            </label>
+                            <div class="relative inline-block w-full text-gray-700">
+                                <select id="variation2" onchange="getData3(this.value, 2)" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                                    <option value="" disabled selected>Select Variation</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div>
+                            <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-0 sm:pt-0" for="username">
+                                GRADES <i class="icon-spinner spinner" style="color:deepskyblue; display:none" id="gradeSpin2"></i>
+                            </label>
+                            <div class="relative inline-block w-full text-gray-700">
+                                <select id="grade2" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Regular input">
+                                    <option value="" disabled selected>Select Grade</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-20">
+                            <button onclick="generateCompChart()" class="bg-green-500 text-sm text-white py-3 px-4 rounded-lg mt-10 w-full sm:mt-7 sm:w-36">
+                                Compare
+                            </button>
+                        </div>
+                        <br />
+                        <span class="text-red-600" id="errText2"></span>
+                    </div>
+                    <hr />
+
+                </div>*@
+
+
+            <br />
+            <div class="container px-6 sm:mx-auto pt-5 md:grid grid-cols-6 md:gap-4">
+                <div class="col-lg-1">
+                    <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0">
+                        Start Date
+                    </label>
+                    <div class="relative inline-block w-full text-gray-700">
+                        <input type="date" id="startDate" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="drtext-style block text-gray-700 text-sm font-bold mb-2 pt-3 sm:pt-0">
+                        End Date
+                    </label>
+                    <div class="relative inline-block w-full text-gray-700">
+                        <input type="date" id="endDate" class="w-full h-12 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline">
+                    </div>
+                </div>
+
+                <div class="mt-20">
+                    <button onclick="searchChart()" class="bg-green-500 text-sm text-white py-3 px-4 rounded-lg mt-10 w-full sm:mt-7 sm:w-36">
+                        Search
+                    </button>
+                </div>
+            </div>
+            <br />
+            <br />
+
+            <div id="chartDiv"></div>
+        </div>
+
+        <div class="container px-6 sm:mx-auto pt-4 grid grid-rows-1">
+            <hr>
+        </div>
+
+        <div class="container px-0 px-6 sm:mx-auto pt-8 pb-8" style="overflow-x: auto;">
+            @*<h2 class="text-center sm:text-center font-boldness" style="color: #8C8787;">Card Details</h2>*@
+
+            <div class="align-middle inline-block min-w-full bg-white pt-3 rounded-bl-lg rounded-br-lg">
+                <table class="min-w-full" id="cardTable">
+                    <thead>
+                        <tr>
+                            @*<th class="px-4 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Photo</th>*@
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Player&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Average Completed Price&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Set&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Variation&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Grade&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                            <th class="px-6 py-3 border-b text-left text-sm leading-4 tracking-wider thcolor">Link&nbsp;&nbsp;<i class="fa fa-caret-down fa-lg"></i></th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="bg-white" id="cardTableBody">
+                        <tr class="text-sm" id="cardTableTr1"></tr>
+                        <tr class="text-sm" id="cardTableTr2"></tr>
+                        <tr class="text-sm" id="cardTableTr3"></tr>
+                        <!--<tr class="font-boldness  text-sm">-->
+                        @*<td class="px-6 py-4 whitespace-no-wrap border-b">
+                    <div class="flex items-center">
+                        <div>
+                            <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="img" width="150">
+                        </div>
+                    </div>
+                </td>*@
+                        <!--<td class="px-6 py-4 whitespace-no-wrap border-b">
+                        Player name
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b leading-5">
+                    Set
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b leading-5">
+                    Variation
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 leading-5">
+                    Grade
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 leading-5">
+                    Price
+                </td>
+            </tr>-->
+
+
+
+                    </tbody>
+                </table>
+                <hr />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    var graphcount = 1;
+    var chartType = 0;
+
+    function getSetData(player)
+    {
+        if (player != " ")
+        {
+            $('#errText').text("");
+
+            $('#setSpin').show();
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: '@Url.Action("GetSetListByPlayer", "Home")',
+                data: { player: player },
+                success: function (response) {
+                    $('#sets').empty();
+                    $('#set').val("");
+                    //$("#sets").append('<option value="" disabled selected>Select Set</option>');
+
+                    $('#variations').empty();
+                    $('#variation').val("");
+                    //$("#variations").append('<option value="" disabled selected>Select Variation</option>');
+
+                    $('#grades').empty();
+                    $('#grade').val("");
+                    //$("#grades").append('<option value="" disabled selected>Select Grade</option>');
+
+                    var i = 0;
+                    $.each(response, function ()
+                    {
+                        $("#sets").append('<option data-value="' + response[i] + '">' + response[i] + '</option>');
+
+                        i++;
+                    });
+
+                    $('#setSpin').hide();
+                },
+                error: function (response)
+                {
+                    $('#sets').empty();
+                    $('#set').val("");
+                    //$("#set").append('<option value="" disabled selected>Select Set</option>');
+
+                    $('#setSpin').hide();
+
+                    alert('Set Ajax Error');
+                }
+
+            });
+        }
+        else
+        {
+            $('#sets').empty();
+            $('#set').val("");
+
+            $('#variations').empty();
+            $('#variation').val("");
+
+            $('#grades').empty();
+            $('#grade').val("");
+        }
+    }
+
+    function getVariationData(set)
+    {
+        if (set != " ")
+        {
+            var player = $('#player').val();
+
+            $('#errText').text("");
+
+            $('#variationSpin').show();
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: '@Url.Action("GetVariationListByPlayer", "Home")',
+                data: { player: player, set: set },
+                success: function (response)
+                {
+                    $('#variations').empty();
+                    $('#variation').val("");
+                    //$("#variation").append('<option value="" disabled selected>Select Variation</option>');
+
+                    $('#grades').empty();
+                    $('#grade').val("");
+                    //$("#grade").append('<option value="" disabled selected>Select Grade</option>');
+
+                    var i = 0;
+                    $.each(response, function ()
+                    {
+                        $("#variations").append('<option data-value="' + response[i] + '">' + response[i] + '</option>');
+
+                        i++;
+                    });
+
+                    $('#variationSpin').hide();
+                },
+                error: function (response)
+                {
+                    $('#variations').empty();
+                    $('#variation').val("");
+
+                    $('#grades').empty();
+                    $('#grade').val("");
+
+                    $('#variationSpin').hide();
+
+                    alert('variation Ajax Error');
+                }
+            });
+
+        }
+        else
+        {
+            $('#grades').empty();
+            $('#grade').val("");
+            //$("#grade").append('<option value="" disabled selected>Select Grade</option>');
+        }
+
+    }
+
+    function getGradeData(variation)
+    {
+        if (variation != " ")
+        {
+            var player = $('#player').val();
+            var set = $('#set').val();
+
+            $('#errText').text("");
+
+            $('#gradeSpin').show();
+
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: '@Url.Action("GetGradeListByPlayer", "Home")',
+                data: { player: player, set: set, variation: variation },
+                success: function (response)
+                {
+                    $('#grades').empty();
+                    $('#grade').val("");
+                    //$("#grade").append('<option value="" disabled selected>Select Grade</option>');
+
+                    var i = 0;
+                    $.each(response, function ()
+                    {
+                        $("#grades").append('<option data-value="' + response[i] + '">' + response[i] + '</option>');
+
+                        i++;
+                    });
+
+                    $('#gradeSpin').hide();
+                },
+                error: function (response)
+                {
+                    $('#grades').empty();
+                    $('#grade').val("");
+                    //$("#grade").append('<option value="" disabled selected>Select Grade</option>');
+
+                    $('#gradeSpin').hide();
+
+                    alert('Grade Ajax Error');
+                }
+            });
+
+        }
+        else
+        {
+            $('#grades').empty();
+            $('#grade').val("");
+            //$("#grade").append('<option value="" disabled selected>Select Grade</option>');
+        }
+    }
+
+    function setData()
+    {
+        var player = $.trim($('#player').val());
+        var set = $.trim($('#set').val());
+        var variation = $.trim($('#variation').val());
+        var grade = $.trim($('#grade').val());
+        if (player != "" && set != "" && variation != "" && grade != "")
+        {
+            if (graphcount < 4)
+            {
+                $('#startDate').val("");
+                $('#endDate').val("");
+
+                $('#player' + graphcount).val(player);
+                $('#set' + graphcount).val(set);
+                $('#variation' + graphcount).val(variation);
+                $('#grade' + graphcount).val(grade);
+
+                if (graphcount == 1)
+                {
+                    generateChart1();
+                }
+                else if (graphcount == 2)
+                {
+                    generateChart2();
+                }
+                else
+                {
+                    generateChart3();
+                }
+            }
+            else
+            {
+                alert("Max 3 players can be selected");
+            }
+        }
+        else
+        {
+            $('#errText').text("All Fields Required");
+        }
+    }
+
+</script>
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    function searchChart()
+    {
+        var startDate = $.trim($('#startDate').val());
+        var endDate = $.trim($('#endDate').val());
+
+        if (startDate == "" || endDate == "")
+        {
+            alert("Empty date field not allowed");
+        }
+        else
+        {
+            var days = (Date.parse(endDate) - Date.parse(startDate)) / 86400000;
+
+            if (days < 0)
+            {
+                alert("End date must be grater then or equal to Start date");
+            }
+            else
+            {
+
+                if (chartType == 1)
+                {
+                    graphcount--;
+
+                    generateChart1(startDate, endDate);
+                }
+                else if (chartType == 2)
+                {
+                    graphcount--;
+                    generateChart2(startDate, endDate);
+                }
+                else if (chartType == 3)
+                {
+                    generateChart3(startDate, endDate);
+                }
+            }
+        }
+
+    }
+
+
+    function generateChart1(sdate, edate)
+    {
+        var player = $.trim($('#player1').val());
+        var set = $.trim($('#set1').val());
+        var variation = $.trim($('#variation1').val());
+        var grade = $.trim($('#grade1').val());
+
+        if (player != "" && set != "" && variation != "" && grade != "")
+        {
+            $('#loadImg').show();
+
+            $.ajax({
+                url: '@Url.Action("GetChartData", "Home")',
+                dataType: "json",
+                type: "post",
+                data: { player: player, set: set, variation: variation, grade: grade, startDate: sdate, endDate: edate },
+                error: function (xhr, status, error)
+                {
+                    alert("Chart Ajax Error");
+                    $('#loadImg').hide();
+                },
+                success: function (response)
+                {
+                    //if (response.length == 0)
+                    //{
+                    //    $('#dataDiv').hide();
+                    //    alert("No Data Found");
+                    //    $('#loadImg').hide();
+                    //}
+                    //else
+                    //{
+                    $('#dataDiv').show();
+
+                    $('#cardId1').val(response[0].Id);
+                    $('#chartDiv').empty();
+                    $('#chartHeading').text(player + "'s Price Chart");
+
+                    var dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn('date', 'Date');
+                    dataTable.addColumn('number', 'Price');
+                    dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+
+                    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+                    ];
+                    //var d1 = new Date(response[0].date);
+                    //var d2 = new Date(response[parseInt(response.length)-1].date);
+                    //var month = "";
+
+                    //if (d1.getMonth() == d2.getMonth() && d1.getFullYear() == d2.getFullYear()) {
+                    //    month = monthNames[d1.getMonth()] + ", " + d1.getFullYear();
+                    //}
+                    //else {
+                    //    month = "from " + monthNames[d1.getMonth()] + ", " + d1.getFullYear() + " to " + monthNames[d2.getMonth()] + " " + d2.getFullYear()
+                    //}
+
+                    if (response[0].Id2 != -1)
+                    {
+
+                        //var month = "";
+                        //if (response[0].date == response[parseInt(response.length) - 1].date) {
+                        //    month = "for " + response[0].date;
+                        //}
+                        //else {
+                        //    month = "from " + response[0].date + " to " + response[parseInt(response.length) - 1].date;
+                        //}
+
+                        var i = 0;
+                        $.each(response, function ()
+                        {
+                            //dataTable.addRows([
+                            //    [new Date(response[i].date), parseFloat(response[i].price), '<div style="padding:5px; width:250px;"><center><b style="color:blue;">US $' + response[0].average + '</b><br>Average completed sale price for this card ' + month + '.</center><hr><b>Date: </b>' + response[i].date + '<br><b>Price: </b>$' + response[i].price + '<br><b>Player : </b> ' + player + '<br><b>Set : </b> ' + set + '<br><b>Variation : </b>' + variation + '<br><b>Grade: </b>' + grade + ' </div>']
+                            //]);
+
+                            var date = new Date(response[i].date);
+                            dataTable.addRows([
+                                [date, parseFloat(response[i].price), '<div><span style="color:#ABADBA;font-size:0.9em;height: 39px;width: 184px; font-family: "Poppins";">Average completed sale price for ' + monthNames[date.getMonth()] + ", " + date.getFullYear() + '.</span><br><div style="height:11px;"></div><i class="fa fa-circle" style="color:#1B55B2;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average + '</b></div>']
+                            ]);
+
+                            i++;
+                        });
+
+                    }
+                    //else
+                    //{
+                    //    alert("No Data Found");
+                    //}
+
+
+
+
+                    var options =
+                    {
+                        height: 417,
+                        lineWidth: 3,
+                        curveType: 'function', //to make curves in graph
+                        hAxis: {
+                            gridlines:
+                            {
+                                color: "#B6B9C4"
+                            },
+                            textStyle:
+                            {
+                                color: "#10173C",
+                                fontSize: 14,
+                                fontName: "Poppins",
+                            }
+                        },
+                        vAxis: {
+                            gridlines: {
+                                color: "#F1F4F5"
+                            },
+                            baselineColor: '#D4DBE0',
+                            format: 'currency',
+                            minValue: 0,
+                            textStyle: {
+                                color: "#10173C",
+                                fontSize: 14,
+                                fontName: "Poppins"
+                            }
+                        },
+                        explorer: {
+                            axis: 'horizontal',
+                            keepInBounds: true,
+                            maxZoomIn: 4.0,
+                            maxZoomOut: 1.0,
+                        },
+                        pointSize: 7,
+                        legend: 'none',
+                        tooltip: { isHtml: true },
+                        crosshair: { color: '#B6B9C4', trigger: 'both', opacity: 0.7 },
+                        series: {
+                            0: { color: '#1B55B2' },
+                        }
+                    };
+
+
+
+                    var chart = new google.visualization.LineChart(document.getElementById('chartDiv'));
+
+                    chart.draw(dataTable, options);
+
+                    $('#player').val("").change();
+
+                    $('#tempMsg').hide();
+                    $('#tempDiv').hide();
+                    graphcount++;
+                    chartType = 1;
+
+                    generateTable($('#cardId1').val(), 1, "#1B55B2");
+                }
+            });
+        }
+        else {
+            $('#loadImg').hide();
+            alert("Somethings' wrong wit chart 1");
+        }
+    }
+
+
+    function generateChart2(sdate, edate)
+    {
+        var player = $.trim($('#player1').val());
+        var set = $.trim($('#set1').val());
+        var variation = $.trim($('#variation1').val());
+        var grade = $.trim($('#grade1').val());
+
+        var player2 = $.trim($('#player2').val());
+        var set2 = $.trim($('#set2').val());
+        var variation2 = $.trim($('#variation2').val());
+        var grade2 = $.trim($('#grade2').val());
+
+        if (player != "" && set != "" && variation != "" && grade != "" && player2 != "" && set2 != "" && variation2 != "" && grade2 != "")
+        {
+            $('#loadImg').show();
+
+            $.ajax({
+                url: '@Url.Action("GetChart2Data", "Home")',
+                dataType: "json",
+                type: "post",
+                data: { player: player, set: set, variation: variation, grade: grade, player2: player2, set2: set2, variation2: variation2, grade2: grade2, startDate: sdate, endDate: edate },
+                error: function (xhr, status, error)
+                {
+                    $('#errText').text("");
+                    alert("Chart2 Ajax Error");
+                    $('#loadImg').hide();
+                },
+                success: function (response)
+                {
+                    if (response[0].Id2 == $('#cardId1').val())
+                    {
+                        $('#loadImg').hide();
+                        $('#errText').text("Card already inserted");
+                    }
+                    else
+                    {
+                        $('#errText').text("");
+                        $('#cardId2').val(response[0].Id2);
+
+                        $('#chartDiv').empty();
+                        $('#chartHeading').text(player + " Vs " + player2 + " Price Chart");
+
+                        var dataTable = new google.visualization.DataTable();
+                        dataTable.addColumn('date', 'Date');
+                        dataTable.addColumn('number', 'Price');
+                        dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+                        dataTable.addColumn('number', 'Price');
+                        dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+
+                        const monthNames = ["January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"
+                        ];
+                        //var d1 = new Date(response[0].date);
+                        //var d2 = new Date(response[parseInt(response.length) - 1].date);
+                        //var month = "";
+
+                        //if (d1.getMonth() == d2.getMonth() && d1.getFullYear() == d2.getFullYear()) {
+                        //    month = "for " + monthNames[d1.getMonth()] + ", " + d1.getFullYear();
+                        //}
+                        //else {
+                        //    month = "from " + monthNames[d1.getMonth()] + ", " + d1.getFullYear() + " to " + monthNames[d2.getMonth()] + " " + d2.getFullYear()
+                        //}
+
+
+                        //var month = "";
+
+                        //if (response[0].date == response[parseInt(response.length) - 1].date)
+                        //{
+                        //    month = "for " + response[0].date;
+                        //}
+                        //else {
+                        //    month = "from " + response[0].date + " to " + response[parseInt(response.length) - 1].date;
+                        //}
+
+                        var i = 0;
+                        $.each(response, function ()
+                        {
+                            //dataTable.addRows([
+                            //    [new Date(response[i].date), parseFloat(response[i].price), '<div style="padding:5px; width:250px;">Average completed sale price ' + month + '.<br><b>Date: </b>' + response[i].date + '<hr><center style="color:red;"><b>' + player + '</b></center><b>Price: </b>$ ' + response[i].price + '<br><b>Average: </b> $' + response[0].average + '<hr><center style="color:green;"><b>' + player2 + '</b></center> <b>Price: </b> $' + response[i].price2+ '<br><b>Average: </b>$ ' + response[0].average2 + '</div>',
+                            //        parseFloat(response[i].price2), '<div style="padding:5px; width:250px;">Average completed sale price ' + month + '.<br><b>Date: </b>' + response[i].date + '<hr><center style="color:red;"><b>' + player + '</b></center><b>Price: </b>$ ' + response[i].price + '<br><b>Average: </b> $' + response[0].average + '<hr><center style="color:green;"><b>' + player2 + '</b></center> <b>Price: </b> $' + response[i].price2 + '<br><b>Average: </b>$ ' + response[0].average2 + '</div>']
+                            //]);
+
+                            var date = new Date(response[i].date);
+                            dataTable.addRows([
+                                [date, parseFloat(response[i].price), '<div><span style="color:#ABADBA;font-size:0.9em; height: 39px;width: 184px; font-family: "Poppins";">Average completed sale price for ' + monthNames[date.getMonth()] + ", " + date.getFullYear() + '.</span><br><div style="height:11px;"></div><i class="fa fa-circle" style="color:#1B55B2;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US $' + response[i].average + '</b><br><div style="height:8px;"></div><i class="fa fa-circle" style="color:#824ABA;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average2 + '</b></div>',
+                                    parseFloat(response[i].price2), '<div><span style="color:#ABADBA;font-size:0.9em; height: 39px;width: 184px; font-family: "Poppins";">Average completed sale price for ' + monthNames[date.getMonth()] + ", " + date.getFullYear() + '.</span><br><div style="height:11px;"></div><i class="fa fa-circle" style="color:#824ABA;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average2 + '</b><br><div style="height:8px;"></div><i class="fa fa-circle" style="color:#1B55B2;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average + '</b></div>',]
+                            ]);
+
+                            i++;
+                        });
+
+
+                        var options =
+                        {
+                            height: 417,
+                            lineWidth: 3,
+                            curveType: 'function', //to make curves in graph
+                            hAxis: {
+                                gridlines:
+                                {
+                                    color: "#B6B9C4"
+                                },
+                                textStyle:
+                                {
+                                    color: "#10173C",
+                                    fontSize: 14,
+                                    fontName: "Poppins"
+                                }
+                            },
+                            vAxis: {
+                                gridlines: {
+                                    color: "#F1F4F5"
+                                },
+                                baselineColor: '#D4DBE0',
+                                format: 'currency',
+                                minValue: 0,
+                                textStyle: {
+                                    color: "#10173C",
+                                    fontSize: 14,
+                                    fontName: "Poppins"
+                                }
+                            },
+                            explorer: {
+                                axis: 'horizontal',
+                                keepInBounds: true,
+                                maxZoomIn: 4.0,
+                                maxZoomOut: 1.0,
+                            },
+                            pointSize: 7,
+                            legend: 'none',
+                            tooltip: { isHtml: true },
+                            crosshair: { color: '#B6B9C4', trigger: 'both', opacity: 0.7 },
+                            series: {
+                                0: { color: '#1B55B2' },
+                                1: { color: '#824ABA' },
+                            }
+                        };
+
+                        var chart = new google.visualization.LineChart(document.getElementById('chartDiv'));
+
+                        chart.draw(dataTable, options);
+
+                        $('#player').val("").change();
+                        graphcount++;
+                        chartType = 2;
+
+                        generateTable($('#cardId1').val(), 1, "#1B55B2");
+                        generateTable($('#cardId2').val(), 2, "#824ABA");
+                    }
+                }
+            });
+        }
+        else {
+            $('#loadImg').hide();
+            $('#errText').text("");
+            alert("Somethings' wrong (empty values # chart 2)");
+        }
+    }
+
+
+    function generateChart3(sdate, edate)
+    {
+        var player = $.trim($('#player1').val());
+        var set = $.trim($('#set1').val());
+        var variation = $.trim($('#variation1').val());
+        var grade = $.trim($('#grade1').val());
+
+        var player2 = $.trim($('#player2').val());
+        var set2 = $.trim($('#set2').val());
+        var variation2 = $.trim($('#variation2').val());
+        var grade2 = $.trim($('#grade2').val());
+
+        var player3 = $.trim($('#player3').val());
+        var set3 = $.trim($('#set3').val());
+        var variation3 = $.trim($('#variation3').val());
+        var grade3 = $.trim($('#grade3').val());
+
+        if (player != "" && set != "" && variation != "" && grade != "" && player2 != "" && set2 != "" && variation2 != "" && grade2 != "" && player3 != "" && set3 != "" && variation3 != "" && grade3 != "")
+        {
+            $('#loadImg').show();
+
+            $.ajax({
+                url: '@Url.Action("GetChart3Data", "Home")',
+                dataType: "json",
+                type: "post",
+                data: { player: player, set: set, variation: variation, grade: grade, player2: player2, set2: set2, variation2: variation2, grade2: grade2, player3: player3, set3: set3, variation3: variation3, grade3: grade3,startDate: sdate, endDate: edate },
+                error: function (xhr, status, error)
+                {
+                    $('#errText').text("");
+                    alert("Chart3 Ajax Error");
+                    $('#loadImg').hide();
+                },
+                success: function (response)
+                {
+                    if (response[0].Id3 == $('#cardId1').val() || response[0].Id3 == $('#cardId2').val())
+                    {
+                        $('#loadImg').hide();
+
+                        $('#errText').text("Card already inserted");
+                    }
+                    else
+                    {
+                        $('#errText').text("");
+                        $('#cardId3').val(response[0].Id3);
+
+                        $('#chartDiv').empty();
+                        $('#chartHeading').text(player + "/ " + player2 + "/ " + player3 + " Price Chart");
+
+                        var dataTable = new google.visualization.DataTable();
+                        dataTable.addColumn('date', 'Date');
+                        dataTable.addColumn('number', 'Price');
+                        dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+                        dataTable.addColumn('number', 'Price');
+                        dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+                        dataTable.addColumn('number', 'Price');
+                        dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+
+                        const monthNames = ["January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"
+                        ];
+
+                        //var month = "";
+
+                        //if (response[0].date == response[parseInt(response.length)-1].date)
+                        //{
+                        //    month = "for " + response[0].date;
+                        //}
+                        //else {
+                        //    month = "from " + response[0].date + " to " + response[parseInt(response.length)-1].date;
+                        //}
+
+                        var i = 0;
+                        $.each(response, function ()
+                        {
+                            //dataTable.addRows([
+                            //    [new Date(response[i].date), parseFloat(response[i].price), '<div style="padding:5px; width:250px;">Average completed sale price ' + month + '.<br><b>Date: </b>' + response[i].date + '<hr><center style="color:red;"><b>' + player + '</b></center><b>Price: </b>$ ' + response[i].price + '<br><b>Average: </b> $' + response[0].average + '<hr><center style="color:green;"><b>' + player2 + '</b></center> <b>Price: </b> $' + response[i].price2 + '<br><b>Average: </b>$ ' + response[0].average2 + '<hr><center style="color:blue;"><b>' + player3 + '</b></center> <b>Price: </b> $' + response[i].price3 + '<br><b>Average: </b>$ ' + response[0].average3 + '</div>',
+                            //        parseFloat(response[i].price2), '<div style="padding:5px; width:250px;">Average completed sale price ' + month + '.<br><b>Date: </b>' + response[i].date + '<hr><center style="color:red;"><b>' + player + '</b></center><b>Price: </b>$ ' + response[i].price + '<br><b>Average: </b> $' + response[0].average + '<hr><center style="color:green;"><b>' + player2 + '</b></center> <b>Price: </b> $' + response[i].price2 + '<br><b>Average: </b>$ ' + response[0].average2 + '<hr><center style="color:blue;"><b>' + player3 + '</b></center> <b>Price: </b> $' + response[i].price3 + '<br><b>Average: </b>$ ' + response[0].average3 + '</div>',
+                            //        parseFloat(response[i].price3), '<div style="padding:5px; width:250px;">Average completed sale price ' + month + '.<br><b>Date: </b>' + response[i].date + '<hr><center style="color:red;"><b>' + player + '</b></center><b>Price: </b>$ ' + response[i].price + '<br><b>Average: </b> $' + response[0].average + '<hr><center style="color:green;"><b>' + player2 + '</b></center> <b>Price: </b> $' + response[i].price2 + '<br><b>Average: </b>$ ' + response[0].average2 + '<hr><center style="color:blue;"><b>' + player3 + '</b></center> <b>Price: </b> $' + response[i].price3 + '<br><b>Average: </b>$ ' + response[0].average3 + '</div>']
+                            //]);
+
+                            var date = new Date(response[i].date);
+                            dataTable.addRows([
+                                [new Date(response[i].date), parseFloat(response[i].price), '<div><span style="color:#ABADBA;font-size:0.9em; height: 39px;width: 184px; font-family: "Poppins";">Average completed sale price for ' + monthNames[date.getMonth()] + ", " + date.getFullYear() + '.</span><br><div style="height:11px;"></div><i class="fa fa-circle" style="color:#1B55B2;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average + '</b><br><div style="height:8px;"></div><i class="fa fa-circle" style="color:#824ABA;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average2 + '</b><br><div style="height:8px;"></div><i class="fa fa-circle" style="color:#B66E1B;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average3 + '</b></div>',
+                                    parseFloat(response[i].price2), '<div><span style="color:#ABADBA;font-size:0.9em; height: 39px;width: 184px; font-family: "Poppins";">Average completed sale price for ' + monthNames[date.getMonth()] + ", " + date.getFullYear() + '.</span><br><div style="height:11px;"></div><i class="fa fa-circle" style="color:#824ABA;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average2 + '</b><br><div style="height:8px;"></div><i class="fa fa-circle" style="color:#1B55B2;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average + '</b><br><div style="height:8px;"></div><i class="fa fa-circle" style="color:#B66E1B;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average3 + '</b></div>',
+                                    parseFloat(response[i].price3), '<div><span style="color:#ABADBA;font-size:0.9em; height: 39px;width: 184px; font-family: "Poppins";">Average completed sale price for ' + monthNames[date.getMonth()] + ", " + date.getFullYear() + '.</span><br><div style="height:11px;"></div><i class="fa fa-circle" style="color:#B66E1B;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average3 + '</b><br><div style="height:8px;"></div><i class="fa fa-circle" style="color:#1B55B2;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average + '</b><br><div style="height:8px;"></div><i class="fa fa-circle" style="color:#824ABA;"></i>&nbsp;&nbsp;&nbsp; <b style="color: #10173C; font-size: 1.2em; font-family: "Poppins";">US$' + response[i].average2 + '</b></div>']
+                            ]);
+
+                            i++;
+                        });
+
+
+                        var options =
+                        {
+                            height: 417,
+                            lineWidth: 3,
+                            curveType: 'function', //to make curves in graph
+                            hAxis: {
+                                gridlines:
+                                {
+                                    color: "#B6B9C4"
+                                },
+                                textStyle:
+                                {
+                                    color: "#10173C",
+                                    fontSize: 14,
+                                    fontName: "Poppins"
+                                }
+                            },
+                            vAxis: {
+                                gridlines: {
+                                    color: "#F1F4F5"
+                                },
+                                baselineColor: '#D4DBE0',
+                                format: 'currency',
+                                minValue: 0,
+                                textStyle: {
+                                    color: "#10173C",
+                                    fontSize: 14,
+                                    fontName: "Poppins"
+                                }
+                            },
+                            explorer: {
+                                axis: 'horizontal',
+                                keepInBounds: true,
+                                maxZoomIn: 4.0,
+                                maxZoomOut: 1.0,
+                            },
+                            pointSize: 7,
+                            legend: 'none',
+                            tooltip: { isHtml: true },
+                            crosshair: { color: '#B6B9C4', trigger: 'both', opacity: 0.7 },
+                            series: {
+                                0: { color: '#1B55B2' },
+                                1: { color: '#824ABA' },
+                                2: { color: '#B66E1B' },
+                            }
+                        };
+
+                        var chart = new google.visualization.LineChart(document.getElementById('chartDiv'));
+
+                        chart.draw(dataTable, options);
+                        chartType = 3;
+
+
+                        $('#player').val("").change();
+                        graphcount++;
+
+
+                        generateTable($('#cardId1').val(), 1, "#1B55B2");
+                        generateTable($('#cardId2').val(), 2, "#824ABA");
+                        generateTable($('#cardId3').val(), 3, "#B66E1B");
+                    }
+                }
+            });
+        }
+        else {
+            $('#loadImg').hide();
+            $('#errText').text("");
+            alert("Somethings' wrong");
+        }
+    }
+
+</script>
+
+<script>
+
+    function generateTable(id, type, color)
+    {
+        var startDate = $.trim($('#startDate').val());
+        var endDate = $.trim($('#endDate').val());
+
+        $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: '@Url.Action("GetCardById", "Home")',
+            data: { id: id, startDate: startDate, endDate: endDate},
+            success: function (response)
+            {
+                if (response != "0")
+                {
+
+                    $('#cardTableTr' + type).empty();
+
+                    $('#cardTableTr' + type).append('<td class="text-left px-6 py-4 whitespace-no-wrap border-b" style="color:' + color + ';">' +
+                        response.Player +
+                        '</td>' +
+                        '<td class="text-left px-6 py-4 whitespace-no-wrap border-b leading-5">$' +
+                        response.SalePrice +
+                        '</td>' +
+                        '<td class="text-left px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                        response.Set +
+                        '</td>' +
+                        '<td class="text-left px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                        response.Variation +
+                        '</td>' +
+                        '<td class="text-left px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                        response.Grade +
+                        '</td>' +
+                        '<td class="text-left px-6 py-4 whitespace-no-wrap border-b leading-5">' +
+                        '<a href="' + response.Link + '" target="_blank"><span class="text-blue-400"><i class="icon-link"></i> ebay</span></a>' +
+                        '</td>');
+
+                }
+
+                $('#loadImg').hide();
+            },
+            error: function (response)
+            {
+                $('#loadImg').hide();
+
+                alert('Card Table ' + type + ' Ajax Error');
+            }
+
+        });
+    }
+
+    function resetPage()
+    {
+        graphcount = 1;
+        chartType = 0;
+
+        $("#mainContent").load(location.href + " #mainContent");
+    }
+
+</script>
+<script>
+
+    window.onresize = reloadChart;
+
+    function reloadChart()
+    {
+        var startDate = $.trim($('#startDate').val());
+        var endDate = $.trim($('#endDate').val());
+
+        if (chartType == 1) {
+            graphcount--;
+
+            generateChart1(startDate, endDate);
+        }
+        else if (chartType == 2) {
+            graphcount--;
+
+            generateChart2(startDate, endDate);
+        }
+        else if (chartType == 3) {
+            generateChart3(startDate, endDate);
+        }
+    }
+
+</script>

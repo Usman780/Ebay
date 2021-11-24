@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Card">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImgPath" Type="nvarchar(max)" />
+    <Property Name="Player" Type="nvarchar" MaxLength="255" />
+    <Property Name="Set" Type="nvarchar" MaxLength="255" />
+    <Property Name="Variation" Type="nvarchar" MaxLength="255" />
+    <Property Name="Grade" Type="nvarchar" MaxLength="255" />
+    <Property Name="SalePrice" Type="nvarchar" MaxLength="255" />
+    <Property Name="CardDate" Type="nvarchar" MaxLength="255" />
+    <Property Name="Link" Type="nvarchar(max)" />
+    <Property Name="Charts" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Contact" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="355" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="Role" Type="int" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <Function Name="sp_AddUpdateCard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StatementType" Type="nvarchar" Mode="In" />
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="ImgPath" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Player" Type="nvarchar" Mode="In" />
+    <Parameter Name="Set" Type="nvarchar" Mode="In" />
+    <Parameter Name="Variation" Type="nvarchar" Mode="In" />
+    <Parameter Name="Grade" Type="nvarchar" Mode="In" />
+    <Parameter Name="SalePrice" Type="nvarchar" Mode="In" />
+    <Parameter Name="CardDate" Type="nvarchar" Mode="In" />
+    <Parameter Name="Link" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Charts" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IsActive" Type="int" Mode="In" />
+    <Parameter Name="CreatedAt" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_GetActiveCardById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_GetActiveCards" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_GetActiveCardsBySearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Player" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_GetAllCards" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_GetCardById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="DatabaseModelStoreContainer">
+    <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Update Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content bg-white m-10">
+    <br />
+    <br />
+
+    <div class="row" style="height:700px;">
+        <form action="@Url.Action("PostUpdateProfile", "Auth")" method="post">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+
+                            <div class="text-left" style="color:@ViewBag.Color ; font-weight:bold" id="alertMsg">
+                                @ViewBag.Message
+                            </div>
+
+                            <h5 class="panel-title" align="center"><u>Update Profile</u></h5>
+
+                        </div>
+
+                        <div class="panel-body">
+
+
+                            <input type="hidden" class="form-control" required name="EncId" placeholder="" value="@EbayProject.Helping_Classes.StringCipher.Encrypt(Convert.ToString(ViewBag.User.Id))">
+                            <div class="form-group">
+                                <label>Name :</label>
+                                <input type="text" class="form-control" required name="Name" placeholder="Please Enter your First Name" value="@ViewBag.User.Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Contact :</label>
+                                <input type="text" class="form-control" required name="Contact" placeholder="Please Enter your Contact Number" value="@ViewBag.User.Contact">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email :</label>
+                                <input type="email" class="form-control" required name="Email" placeholder="Please Enter your Email" value="@ViewBag.User.Email">
+                            </div>
+
+
+                            <div class="text-right">
+                                <button type="submit" id="subBtn" class="btn btn-primary">Update <i class="icon-database-insert position-right"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
